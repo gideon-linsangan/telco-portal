@@ -1,4 +1,3 @@
-import { headers } from 'next/headers'
 import { verifySession } from '@/lib/dal'
 import { AccountCard } from '@/components/dashboard/AccountCard'
 import { BillingCard } from '@/components/dashboard/BillingCard'
@@ -8,29 +7,33 @@ import { ActivityFeed } from '@/components/dashboard/ActivityFeed'
 import { TicketsCard } from '@/components/dashboard/TicketsCard'
 import { AddonsCard } from '@/components/dashboard/AddonsCard'
 import type { Account, Billing, Usage, UsageHistory, Activity, Tickets, Addons } from '@/types/dashboard'
-
-async function fetchAPI<T>(path: string, baseUrl: string): Promise<T> {
-  const res = await fetch(`${baseUrl}${path}`, { cache: 'no-store' })
-  if (!res.ok) throw new Error(`Failed to fetch ${path}`)
-  return res.json() as Promise<T>
-}
+import accountData from '@/stubs/account.json'
+import billingData from '@/stubs/billing.json'
+import usageData from '@/stubs/usage.json'
+import usageHistoryData from '@/stubs/usage-history.json'
+import activityData from '@/stubs/activity.json'
+import ticketsData from '@/stubs/tickets.json'
+import addonsData from '@/stubs/addons.json'
 
 export default async function DashboardPage() {
   const session = await verifySession()
-  const headersList = await headers()
-  const host = headersList.get('host') ?? 'localhost:3000'
-  const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http'
-  const baseUrl = `${protocol}://${host}`
 
-  const [account, billing, usage, usageHistory, activity, tickets, addons] = await Promise.all([
-    fetchAPI<Account>('/api/account', baseUrl),
-    fetchAPI<Billing>('/api/billing', baseUrl),
-    fetchAPI<Usage>('/api/usage', baseUrl),
-    fetchAPI<UsageHistory>('/api/usage-history', baseUrl),
-    fetchAPI<Activity>('/api/activity', baseUrl),
-    fetchAPI<Tickets>('/api/tickets', baseUrl),
-    fetchAPI<Addons>('/api/addons', baseUrl),
-  ])
+  const today = new Date()
+  const cycleEnd = new Date(usageData.cycleEndDate)
+  const msPerDay = 1000 * 60 * 60 * 24
+  const daysRemaining = Math.max(0, Math.ceil((cycleEnd.getTime() - today.getTime()) / msPerDay))
+  const percentUsed = Math.round((usageData.usedGB / usageData.totalGB) * 100)
+
+  const account: Account = {
+    ...(accountData as unknown as Omit<Account, 'accountNumber'>),
+    accountNumber: session.accountNumber,
+  }
+  const billing = billingData as unknown as Billing
+  const usage: Usage = { ...usageData, percentUsed, daysRemaining }
+  const usageHistory = usageHistoryData as unknown as UsageHistory
+  const activity = activityData as unknown as Activity
+  const tickets = ticketsData as unknown as Tickets
+  const addons = addonsData as unknown as Addons
 
   return (
     <main className="flex-1 p-8">
