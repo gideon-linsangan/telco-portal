@@ -8,12 +8,10 @@ export function ProgressBar({ percent, className = '' }: ProgressBarProps) {
   const isHigh = clamped >= 80
 
   return (
-    <div className={`w-full h-2.5 bg-brand-surface rounded-full overflow-hidden ${className}`}>
+    <div className={`w-full h-2.5 bg-neutral-surface rounded-full overflow-hidden ${className}`}>
       <div
         className={`h-full rounded-full transition-all duration-300 ${
-          isHigh
-            ? 'bg-[linear-gradient(90deg,#00B388_0%,#00B388_70%,#FF6B35_70%,#FF6B35_100%)]'
-            : 'bg-[#00B388]'
+          isHigh ? 'bg-semantic-warning' : 'bg-semantic-success'
         }`}
         style={{ width: `${clamped}%` }}
         role="progressbar"

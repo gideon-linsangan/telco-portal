@@ -3,5 +3,6 @@ export interface SessionPayload {
   name: string
   email: string
   accountNumber: string
+  planName: string
   expiresAt: Date
 }

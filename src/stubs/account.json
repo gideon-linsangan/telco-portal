@@ -1,7 +1,10 @@
 {
   "planName": "Plus",
   "planTier": "plus",
+  "dataAllowanceGB": 50,
   "renewalDate": "2026-07-15",
   "monthlyCost": 65,
-  "status": "active"
+  "contract": "No lock-in",
+  "status": "active",
+  "accountNumber": "TN-000001"
 }

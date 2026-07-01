@@ -9,6 +9,7 @@ const STUB_USER = {
   name: 'Alex Chen',
   email: STUB_EMAIL,
   accountNumber: 'TN-000001',
+  planName: 'Plus plan',
 }
 
 export type LoginState = { error?: string } | undefined

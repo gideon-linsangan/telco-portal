@@ -10,10 +10,10 @@ const navLinks = [
 
 export function Header() {
   return (
-    <header className="bg-brand-purple-darkest w-full sticky top-0 z-50 border-b border-white/8">
+    <header className="bg-brand-deep w-full sticky top-0 z-50 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-12 h-16 flex items-center">
         <Link href="/" className="text-white text-xl font-bold tracking-tight flex-shrink-0 no-underline">
-          Telco<span className="text-brand-purple-light">Now</span>
+          Telco<span className="text-brand-light">Now</span>
         </Link>
 
         <nav className="flex items-center gap-1 mx-auto" aria-label="Main navigation">

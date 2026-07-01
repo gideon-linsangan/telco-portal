@@ -7,12 +7,12 @@ interface BadgeProps {
 }
 
 const variantClasses: Record<BadgeVariant, string> = {
-  success: 'bg-status-success-bg text-status-success-text',
-  warning: 'bg-status-warning-bg text-status-warning-text',
-  error: 'bg-status-error-bg text-status-error-text',
-  neutral: 'bg-brand-surface text-brand-muted',
-  purple: 'bg-brand-purple-light text-brand-purple-darkest',
-  info: 'bg-status-info-bg text-status-info-text',
+  success: 'bg-semantic-success-tint text-semantic-success',
+  warning: 'bg-semantic-warning-tint text-semantic-warning',
+  error: 'bg-semantic-error-tint text-semantic-error',
+  neutral: 'bg-neutral-surface text-neutral-slate',
+  purple: 'bg-brand-light text-brand-deep',
+  info: 'bg-blue-50 text-blue-700',
 }
 
 export function Badge({ variant = 'neutral', children, className = '' }: BadgeProps) {

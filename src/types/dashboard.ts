@@ -1,8 +1,10 @@
 export interface Account {
   planName: string
   planTier: 'starter' | 'plus' | 'pro'
+  dataAllowanceGB: number | null
   renewalDate: string
   monthlyCost: number
+  contract: string
   status: 'active' | 'inactive' | 'suspended'
   accountNumber: string
 }

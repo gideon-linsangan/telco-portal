@@ -15,8 +15,8 @@ export function FeatureGrid({ features }: FeatureGridProps) {
               <div className="text-3xl mb-4" aria-hidden="true">
                 {feature.icon}
               </div>
-              <h3 className="text-brand-dark text-lg font-semibold mb-3">{feature.title}</h3>
-              <p className="text-brand-muted text-sm leading-relaxed">{feature.bodyCopy}</p>
+              <h3 className="text-neutral-ink text-lg font-semibold mb-3">{feature.title}</h3>
+              <p className="text-neutral-slate text-sm leading-relaxed">{feature.bodyCopy}</p>
             </Card>
           ))}
         </div>

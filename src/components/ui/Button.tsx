@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-type Variant = 'primary' | 'ghost-purple' | 'ghost-white'
+type Variant = 'primary' | 'ghost-purple' | 'ghost-white' | 'ghost-hero'
 type Size = 'default' | 'lg'
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -16,11 +16,13 @@ interface LinkButtonProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> 
 
 const variantClasses: Record<Variant, string> = {
   primary:
-    'bg-brand-purple text-white border-transparent hover:bg-[#7500C0] hover:shadow-[0_4px_16px_rgba(161,0,255,0.35)]',
+    'bg-brand-signature text-white border-transparent hover:bg-brand-mid hover:shadow-[0_4px_16px_rgba(161,0,255,0.35)]',
   'ghost-purple':
-    'bg-transparent text-brand-purple border-brand-purple hover:bg-brand-bg',
+    'bg-transparent text-brand-signature border-brand-signature hover:bg-brand-ghost',
   'ghost-white':
-    'bg-transparent text-white border-white/70 hover:border-white hover:bg-white/12',
+    'bg-transparent text-white border-white/70 hover:border-white hover:bg-white/10',
+  'ghost-hero':
+    'bg-transparent text-white border-white/60 hover:border-white hover:bg-white/10',
 }
 
 const sizeClasses: Record<Size, string> = {

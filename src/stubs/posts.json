@@ -1,26 +1,26 @@
 [
   {
-    "category": "Network",
-    "title": "5G Ultra rollout reaches regional Australia",
-    "excerpt": "TelcoNow's 5G Ultra network now covers major regional centres including Ballarat, Bendigo, and Toowoomba — bringing gigabit speeds outside the capital cities.",
-    "author": "TelcoNow Team",
-    "publishDate": "2026-06-20",
-    "slug": "5g-ultra-regional-rollout"
+    "category": "Technology",
+    "title": "5G vs 4G: what actually changes for you",
+    "excerpt": "Beyond the buzzword — we break down exactly what the switch to 5G means in your everyday life, from streaming to gaming to video calls.",
+    "author": "Jamie Holt",
+    "publishDate": "2026-06-14",
+    "slug": "5g-vs-4g"
   },
   {
     "category": "Tips",
-    "title": "How to get the most out of your mobile data",
-    "excerpt": "From background app refresh to streaming quality settings, these simple tweaks can save gigabytes every month without sacrificing the experience.",
-    "author": "TelcoNow Team",
-    "publishDate": "2026-06-10",
+    "title": "How to get the most from your data plan",
+    "excerpt": "Simple habits and settings that can stretch your gigabytes further — from background app refresh to smarter streaming quality choices.",
+    "author": "Priya Nair",
+    "publishDate": "2026-06-08",
     "slug": "get-most-out-of-mobile-data"
   },
   {
-    "category": "Plans",
-    "title": "Introducing TelcoNow Max — unlimited, unleashed",
-    "excerpt": "Our new Max plan gives you truly unlimited data with no speed throttling, priority network access, and international calls to 20 countries.",
-    "author": "TelcoNow Team",
-    "publishDate": "2026-06-01",
-    "slug": "introducing-telconow-max"
+    "category": "Company",
+    "title": "Why we removed lock-in contracts",
+    "excerpt": "The story of how listening to our customers changed the way we think about commitment — and what it means for you as a TelcoNow member.",
+    "author": "Sam Delacroix",
+    "publishDate": "2026-06-02",
+    "slug": "why-we-removed-lock-in-contracts"
   }
 ]

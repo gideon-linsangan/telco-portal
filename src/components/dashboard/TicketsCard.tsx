@@ -14,31 +14,51 @@ const priorityVariant: Record<Ticket['priority'], 'error' | 'warning' | 'info'> 
   low: 'info',
 }
 
+const priorityLabel: Record<Ticket['priority'], string> = {
+  high: 'High priority',
+  medium: 'Medium priority',
+  low: 'Low priority',
+}
+
 export function TicketsCard({ tickets }: { tickets: Tickets }) {
+  const openCount = tickets.filter((t) => t.status === 'open').length
+
   return (
-    <Card className="p-6">
-      <p className="text-xs font-medium text-brand-muted uppercase tracking-wider mb-4">Support tickets</p>
+    <Card className="p-6 flex flex-col gap-4">
+      <div className="flex items-center justify-between">
+        <p className="text-xs font-medium uppercase tracking-[0.06em] text-neutral-slate">Support Tickets</p>
+        {openCount > 0 && (
+          <Badge variant="warning">{openCount} open</Badge>
+        )}
+      </div>
 
       {tickets.length === 0 ? (
-        <p className="text-brand-muted text-sm">No tickets open.</p>
+        <p className="text-neutral-slate text-sm">No tickets open.</p>
       ) : (
-        <ul className="space-y-4" aria-label="Support tickets">
+        <div className="flex flex-col gap-2.5">
           {tickets.map((ticket) => (
-            <li key={ticket.id} className="flex items-start justify-between gap-4">
-              <div className="flex-1 min-w-0">
-                <p className="text-brand-dark text-sm font-medium truncate">{ticket.subject}</p>
-                <p className="text-brand-muted text-xs mt-0.5">
-                  {ticket.id} · Updated {new Date(ticket.updatedAt).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })}
-                </p>
-              </div>
-              <div className="flex flex-col items-end gap-1 flex-shrink-0">
+            <div key={ticket.id} className="border border-neutral-border rounded-lg p-3.5 flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[14px] font-semibold text-neutral-ink">{ticket.subject}</span>
                 <Badge variant={statusVariant[ticket.status]} className="capitalize">{ticket.status}</Badge>
-                <Badge variant={priorityVariant[ticket.priority]} className="capitalize">{ticket.priority}</Badge>
               </div>
-            </li>
+              <div className="flex items-center gap-2">
+                <Badge variant={priorityVariant[ticket.priority]}>{priorityLabel[ticket.priority]}</Badge>
+                <span className="text-xs text-neutral-slate">
+                  {new Date(ticket.updatedAt).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
+                </span>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
+
+      <button
+        type="button"
+        className="mt-1 h-9 px-4 border border-brand-signature text-brand-signature text-[13px] font-semibold rounded-lg hover:bg-brand-ghost transition-colors self-start"
+      >
+        + Raise a ticket
+      </button>
     </Card>
   )
 }

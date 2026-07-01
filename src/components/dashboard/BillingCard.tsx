@@ -10,34 +10,46 @@ const paymentStatusVariant: Record<Billing['lastPayment']['status'], 'success' |
 
 export function BillingCard({ billing }: { billing: Billing }) {
   return (
-    <Card className="p-6">
-      <p className="text-xs font-medium text-brand-muted uppercase tracking-wider mb-4">Billing</p>
+    <Card className="p-6 flex flex-col gap-4">
+      <p className="text-xs font-medium uppercase tracking-[0.06em] text-neutral-slate">Billing</p>
 
-      <div className="mb-4 pb-4 border-b border-brand-border">
-        <p className="text-brand-muted text-sm mb-1">Next payment</p>
-        <p className="text-brand-dark text-2xl font-bold">${billing.nextPayment.amount}</p>
-        <p className="text-brand-muted text-xs mt-1">
-          Due {new Date(billing.nextPayment.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
-        </p>
+      <div>
+        <p className="text-[12px] text-neutral-slate mb-1">Next payment</p>
+        <div className="flex items-baseline gap-1.5">
+          <span className="text-[36px] font-bold text-brand-deep tracking-tight leading-none">
+            ${billing.nextPayment.amount}
+          </span>
+          <span className="text-[13px] text-neutral-slate">
+            due {new Date(billing.nextPayment.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
+          </span>
+        </div>
       </div>
 
-      <div className="space-y-2 text-sm">
-        <div className="flex justify-between items-center">
-          <span className="text-brand-muted">Last payment</span>
+      <div className="h-px bg-neutral-border" />
+
+      <div className="flex flex-col gap-2.5 text-[13px]">
+        <div className="flex items-center justify-between">
+          <span className="text-neutral-slate">Last payment</span>
           <div className="flex items-center gap-2">
-            <span className="text-brand-dark font-medium">${billing.lastPayment.amount}</span>
+            <span className="font-semibold text-neutral-ink">
+              {new Date(billing.lastPayment.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
+            </span>
             <Badge variant={paymentStatusVariant[billing.lastPayment.status]} className="capitalize">
               {billing.lastPayment.status}
             </Badge>
           </div>
         </div>
-        <div className="flex justify-between">
-          <span className="text-brand-muted">Payment method</span>
-          <span className="text-brand-dark font-medium capitalize">
-            {billing.paymentMethod.type} ···· {billing.paymentMethod.last4}
+        <div className="flex items-center justify-between">
+          <span className="text-neutral-slate">Payment method</span>
+          <span className="font-semibold text-neutral-ink capitalize">
+            {billing.paymentMethod.type} •••• {billing.paymentMethod.last4}
           </span>
         </div>
       </div>
+
+      <a href="#" className="text-brand-signature text-[13px] font-semibold mt-1 hover:text-brand-mid transition-colors">
+        Billing history →
+      </a>
     </Card>
   )
 }

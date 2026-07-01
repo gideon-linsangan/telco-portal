@@ -17,21 +17,26 @@ const statusVariant: Record<ActivityItem['status'], 'success' | 'warning' | 'err
 
 export function ActivityFeed({ activity }: { activity: Activity }) {
   return (
-    <Card className="p-6">
-      <p className="text-xs font-medium text-brand-muted uppercase tracking-wider mb-4">Recent activity</p>
+    <Card className="p-6 flex flex-col gap-4">
+      <div className="flex items-center justify-between">
+        <p className="text-xs font-medium uppercase tracking-[0.06em] text-neutral-slate">Recent Activity</p>
+        <a href="#" className="text-brand-signature text-[13px] font-semibold hover:text-brand-mid transition-colors">
+          View all →
+        </a>
+      </div>
 
-      <ul className="space-y-4" aria-label="Recent account activity">
+      <ul className="flex flex-col gap-1" aria-label="Recent account activity">
         {activity.map((item) => (
-          <li key={item.id} className="flex items-start justify-between gap-4">
+          <li key={item.id} className="flex items-center justify-between gap-4 px-3 py-3 rounded-lg hover:bg-brand-ghost transition-colors">
             <div className="flex-1 min-w-0">
-              <p className="text-brand-dark text-sm font-medium truncate">{item.description}</p>
-              <p className="text-brand-muted text-xs mt-0.5">
-                {typeLabel[item.type]} · {new Date(item.timestamp).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })}
+              <p className="text-neutral-ink text-[14px] font-semibold truncate">{item.description}</p>
+              <p className="text-neutral-slate text-xs mt-0.5">
+                {typeLabel[item.type]} · {new Date(item.timestamp).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
               </p>
             </div>
             <div className="flex flex-col items-end gap-1 flex-shrink-0">
               {item.amount !== null && (
-                <span className="text-brand-dark text-sm font-semibold">
+                <span className="text-neutral-ink text-[14px] font-bold">
                   ${Math.abs(item.amount).toFixed(2)}
                 </span>
               )}

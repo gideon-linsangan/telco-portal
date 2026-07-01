@@ -1,7 +1,7 @@
 {
-  "badgeText": "Australia's #1 5G Network",
-  "headline": "Stay connected on Australia's fastest 5G network",
-  "subheadline": "Flexible plans with no lock-in contracts. Switch today and get your first month free.",
-  "primaryCta": { "label": "Get started", "href": "#" },
-  "secondaryCta": { "label": "View plans", "href": "#plans" }
+  "badgeText": "5G Now Live Nationwide",
+  "headline": "Australia's fastest 5G network.",
+  "subheadline": "Flexible plans. No lock-in contracts. Cancel any time.",
+  "primaryCta": { "label": "View plans", "href": "#plans" },
+  "secondaryCta": { "label": "Check coverage", "href": "#coverage" }
 }

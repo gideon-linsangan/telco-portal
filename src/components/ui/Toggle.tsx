@@ -16,8 +16,8 @@ export function Toggle({ value, onChange, label, disabled = false }: ToggleProps
       aria-label={label}
       disabled={disabled}
       onClick={() => onChange(!value)}
-      className={`relative w-[34px] h-5 rounded-full transition-colors duration-150 flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple focus-visible:ring-offset-2 ${
-        value ? 'bg-brand-purple' : 'bg-brand-border'
+      className={`relative w-[34px] h-5 rounded-full transition-colors duration-150 flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-signature focus-visible:ring-offset-2 ${
+        value ? 'bg-brand-signature' : 'bg-neutral-border'
       } ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
     >
       <span

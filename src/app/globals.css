@@ -1,35 +1,7 @@
-@import "tailwindcss";
-
-@theme {
-  /* Brand palette — extracted from design files */
-  --color-brand-purple-darkest: #460073;
-  --color-brand-purple: #A100FF;
-  --color-brand-purple-light: #E5CCFF;
-  --color-brand-bg: #F5EEFF;
-  --color-brand-dark: #0F0F1A;
-  --color-brand-muted: #4A4A5A;
-  --color-brand-border: #E8E8F0;
-  --color-brand-surface: #F0F0F6;
-
-  /* Semantic status colours */
-  --color-status-success-bg: #E6F9F4;
-  --color-status-success-text: #00875F;
-  --color-status-warning-bg: #FFF2EC;
-  --color-status-warning-text: #C94F10;
-  --color-status-error-bg: #FFEDF0;
-  --color-status-error-text: #B5001F;
-  --color-status-info-bg: #EEF4FF;
-  --color-status-info-text: #2A5CC7;
-
-  /* Typography */
-  --font-sans: 'Inter', system-ui, sans-serif;
-
-  /* Shadows */
-  --shadow-card: 0 1px 4px rgba(70, 0, 115, 0.06);
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
-  font-family: var(--font-sans);
-  background-color: #ffffff;
-  color: var(--color-brand-dark);
+  font-family: var(--font-inter), system-ui, sans-serif;
 }
