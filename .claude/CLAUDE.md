@@ -7,11 +7,11 @@ a login page, and an authenticated customer dashboard.
 
 | Layer | Tool |
 |---|---|
-| Framework | Next.js 14 (App Router) |
+| Framework | Next.js 16.2.9 (App Router) |
 | Language | TypeScript (strict mode) |
-| Styling | Tailwind CSS |
+| Styling | Tailwind CSS v4 (CSS-first, no config file) |
 | CMS | Contentful |
-| Auth | NextAuth.js v5 |
+| Auth | jose JWT (native, no NextAuth) |
 | Hosting | Vercel |
 
 ## Brief
