@@ -1,7 +1,12 @@
 {
   "permissions": {
+    "defaultMode": "acceptEdits",
     "allow": [
-      "Bash(npx vercel *)"
+      "Bash(npx vercel *)",
+      "Bash(*)",
+      "PowerShell(*)",
+      "Write(*)",
+      "Edit(*)"
     ]
   },
   "enabledPlugins": {

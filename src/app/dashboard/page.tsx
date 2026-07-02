@@ -49,7 +49,7 @@ export default async function DashboardPage() {
       {/* Dashboard grid */}
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-4">
-          <PlanSummaryCard accountNumber={session.accountNumber} />
+          <PlanSummaryCard />
         </div>
         <div className="col-span-8">
           <UsageMeterCard />
@@ -69,10 +69,10 @@ export default async function DashboardPage() {
         <div className="col-span-4">
           <SupportTickets />
         </div>
-        <div className="col-span-4">
+        <div className="col-span-6">
           <AddOnsCard />
         </div>
-        <div className="col-span-4">
+        <div className="col-span-6">
           <UpgradeBanner percentUsed={77} />
         </div>
       </div>

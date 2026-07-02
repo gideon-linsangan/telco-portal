@@ -40,29 +40,37 @@ export function UsageHistoryChart() {
   return (
     <div className="bg-white border border-neutral-border rounded-xl shadow-card p-6">
       <CardHeader label="Usage history" />
-      <div className="mt-4 relative">
+      <p className="text-[12px] text-neutral-slate mb-4">Monthly data consumption · Jan–Jun 2026</p>
+      <div className="relative">
         {/* Cap line */}
         <div className="absolute top-0 left-0 right-0 flex items-center">
-          <div className="flex-1 border-t border-dashed border-neutral-slate/40" />
-          <span className="ml-2 text-[10px] text-neutral-slate whitespace-nowrap">
-            {totalGB} GB
+          <div
+            className="flex-1 border-t border-dashed"
+            style={{ borderColor: 'rgba(70,0,115,0.3)' }}
+          />
+          <span className="ml-2 text-[10px] font-semibold text-brand-deep opacity-60 whitespace-nowrap">
+            {totalGB} GB cap
           </span>
         </div>
         {/* Bars */}
         <div
-          className="flex items-end gap-2 pt-4"
+          className="flex items-end gap-0 pt-4"
           style={{ height: `${CHART_HEIGHT + 16}px` }}
         >
           {months.map(m => {
             const heightPct = Math.min((m.usedGB / totalGB) * 100, 100)
             const barHeight = Math.round((heightPct / 100) * CHART_HEIGHT)
+            const isAtCap = !m.isCurrent && m.usedGB >= totalGB
 
-            let barClass = 'bg-brand-signature'
+            let barClass = 'bg-brand-signature rounded-t-[4px]'
             if (m.isCurrent) {
-              barClass = 'bg-brand-ghost border border-dashed border-brand-signature opacity-80'
-            } else if (m.usedGB >= totalGB) {
-              barClass = 'bg-brand-light'
+              barClass = 'bg-brand-ghost border border-dashed rounded-t-[4px] opacity-80'
+            } else if (isAtCap) {
+              barClass = 'bg-brand-light rounded-t-[4px]'
             }
+
+            const labelColor = m.isCurrent ? 'text-brand-signature font-semibold' : 'text-neutral-slate'
+            const valColor = isAtCap ? 'text-brand-mid font-semibold' : m.isCurrent ? 'text-brand-signature font-semibold' : 'text-neutral-slate'
 
             return (
               <div
@@ -70,15 +78,38 @@ export function UsageHistoryChart() {
                 className="flex-1 flex flex-col items-center justify-end"
                 style={{ height: `${CHART_HEIGHT}px` }}
               >
-                <span className="text-[10px] text-neutral-slate mb-0.5">{m.usedGB}GB</span>
+                <span className={`text-[10px] mb-0.5 ${valColor}`}>{m.usedGB}GB</span>
                 <div
-                  className={`w-full rounded-t-sm ${barClass}`}
-                  style={{ height: `${barHeight}px` }}
+                  className={`w-7 ${barClass}`}
+                  style={{
+                    height: `${barHeight}px`,
+                    ...(m.isCurrent ? { borderColor: 'rgba(161,0,255,0.5)' } : {}),
+                  }}
                 />
-                <span className="text-[11px] text-neutral-slate text-center mt-1">{m.label}</span>
+                <span className={`text-[11px] text-center mt-1 ${labelColor}`}>
+                  {m.label}{m.isCurrent ? ' ▸' : ''}
+                </span>
               </div>
             )
           })}
+        </div>
+      </div>
+      {/* Legend */}
+      <div className="flex items-center gap-5 mt-4 pt-3 border-t border-neutral-border">
+        <div className="flex items-center gap-1.5">
+          <div className="w-3 h-3 rounded-[2px] bg-brand-signature" />
+          <span className="text-[11px] text-neutral-slate">Data used</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <div className="w-3 h-3 rounded-[2px] bg-brand-light" />
+          <span className="text-[11px] text-neutral-slate">At cap</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <div
+            className="w-6 h-[2px] border-t border-dashed"
+            style={{ borderColor: 'rgba(161,0,255,0.5)' }}
+          />
+          <span className="text-[11px] text-neutral-slate">Current month</span>
         </div>
       </div>
     </div>

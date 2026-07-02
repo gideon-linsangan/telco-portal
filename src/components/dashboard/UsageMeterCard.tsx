@@ -47,10 +47,20 @@ export function UsageMeterCard() {
   const remainingGB = (totalGB - usedGB).toFixed(1)
   const cycleRange = `${formatDateShort(cycleStartDate)} – ${formatDateShort(cycleEndDate)}`
   const overageDisplay = `$${overageRate.toFixed(2)}/MB`
+  const daysRemaining = Math.ceil(
+    (new Date(cycleEndDate).getTime() - Date.now()) / (1000 * 60 * 60 * 24)
+  )
 
   return (
     <div className="bg-white border border-neutral-border rounded-xl shadow-card p-6">
-      <CardHeader label="Data usage" />
+      <CardHeader
+        label="Data usage"
+        action={
+          <span className="text-[13px] font-semibold text-neutral-slate">
+            {percentUsed}% used · {daysRemaining} days left
+          </span>
+        }
+      />
       <div className="mt-4 mb-3">
         <span className="text-[28px] font-bold text-neutral-ink">{usedGB} GB</span>
         <span className="text-[15px] text-neutral-slate ml-2">of {totalGB} GB</span>

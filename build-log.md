@@ -63,8 +63,32 @@
 - **Confirmed live on Vercel:** all 6 content types served from Contentful (verified via `vercel logs`)
 - **Note:** `CONTENTFUL_DELIVERY_TOKEN` env var holds a CFPAT — do not replace with a Delivery API token; other team members rely on it
 
-## Next up
+## Auth — Login page + session (TN-LoginPanel)
 
-- [ ] Login page `/login` — `useActionState`, Server Action `src/app/actions/auth.ts`
-- [ ] Auth middleware `proxy.ts` — JWT validation, redirect to `/login` if no session
-- [ ] Dashboard `/dashboard` — 7 card components: AccountCard, BillingCard, UsageMeter, UsageHistoryChart, ActivityFeed, TicketsCard, AddonsCard
+- [x] `src/app/actions/auth.ts` — `login` and `logout` Server Actions; stub user `user@telconow.com.au` / `password123`
+- [x] `src/lib/session.ts` — `createSession`, `deleteSession`, `getSession` via `jose` JWT (HS256, 7-day expiry, httpOnly cookie)
+- [x] `src/lib/dal.ts` — `verifySession()` wrapped in React `cache()`; redirects to `/login` if no session
+- [x] `src/types/session.ts` — `SessionPayload` interface
+- [x] `src/app/login/page.tsx` — split-panel layout (45% brand-deep / 55% white); `useActionState` form; show/hide password toggle; inline error; "Forgot password?" + "Get started →" links
+- [x] `proxy.ts` — route protection at Node.js level; protects `/dashboard`, public-only `/login`
+- [x] `SESSION_SECRET` set in `.env.local` and Vercel production env vars
+- **Fix:** `text-white/92` → `text-white/90` on bullet text (92 not in Tailwind v3 opacity scale → generated no CSS in production build)
+
+## Dashboard (TN-009 through TN-018)
+
+- [x] `src/stubs/` — all 7 stub JSON files created (account, usage, billing, activity, tickets, usage-history, addons); written without UTF-8 BOM
+- [x] `src/types/` — AccountData, UsageData, BillingData, ActivityItem, Ticket, UsageMonth/UsageHistoryData, Addon types
+- [x] `src/hooks/` — useAccount, useUsage, useBilling, useActivity, useTickets, useUsageHistory, useAddons; all follow loading|error|success union with cancellation flags
+- [x] `src/app/dashboard/layout.tsx` — AppShell: verifySession() + Sidebar + brand-ghost main area
+- [x] `src/components/dashboard/Sidebar.tsx` — 240px brand-deep sidebar; wordmark + "MY ACCOUNT" subtitle; SidebarNav (client); UserChip + Log out footer
+- [x] `src/components/dashboard/SidebarNav.tsx` — `'use client'`; usePathname() active state; 6 nav items with inline SVGs; logout form action
+- [x] `src/app/dashboard/page.tsx` — dynamic greeting (morning/afternoon/evening), date + bill countdown, 12-col grid
+- [x] `PlanSummaryCard` (col-span-4) — plan name, account number, cost/renewal/contract/status badge
+- [x] `UsageMeterCard` (col-span-8) — ProgressBar, 3 StatTiles (Remaining/Cycle/Overage rate), warning at ≥80%
+- [x] `BillingCard` (col-span-4) — next payment metric, last payment badge, payment method, billing history link
+- [x] `ActivityFeed` (col-span-8) — 4 items with type icons, amounts (null → "—"), status badges, "View all →" header link
+- [x] `UsageHistoryChart` (col-span-12) — pure CSS bar chart; at-cap bar in brand-light; current month dashed/ghost; 50GB cap line
+- [x] `SupportTickets` (col-span-4) — status (open/resolved) + priority (low/medium/high) badges; empty state
+- [x] `AddOnsCard` (col-span-4) — local toggle state from stub active field; price + billing cycle
+- [x] `UpgradeBanner` (col-span-4) — dark brand-deep card; warning badge; decorative SVG rings; Upgrade now CTA
+- **Deployed to Vercel:** `https://project-ih51i.vercel.app/dashboard`
