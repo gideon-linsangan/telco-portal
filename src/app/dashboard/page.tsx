@@ -2,6 +2,14 @@ export const dynamic = 'force-dynamic'
 
 import { verifySession } from '@/lib/dal'
 import accountStub from '@/stubs/account.json'
+import { PlanSummaryCard } from '@/components/dashboard/PlanSummaryCard'
+import { UsageMeterCard } from '@/components/dashboard/UsageMeterCard'
+import { BillingCard } from '@/components/dashboard/BillingCard'
+import { ActivityFeed } from '@/components/dashboard/ActivityFeed'
+import { SupportTickets } from '@/components/dashboard/SupportTickets'
+import { UsageHistoryChart } from '@/components/dashboard/UsageHistoryChart'
+import { AddOnsCard } from '@/components/dashboard/AddOnsCard'
+import { UpgradeBanner } from '@/components/dashboard/UpgradeBanner'
 
 function getGreeting(): string {
   const hour = new Date().getHours()
@@ -28,7 +36,6 @@ export default async function DashboardPage() {
 
   return (
     <div className="p-8">
-
       {/* Page header */}
       <div className="mb-7">
         <h1 className="text-[28px] font-bold text-neutral-ink tracking-tight mb-1">
@@ -39,11 +46,36 @@ export default async function DashboardPage() {
         </p>
       </div>
 
-      {/* Dashboard cards — added per component story */}
+      {/* Dashboard grid */}
       <div className="grid grid-cols-12 gap-6">
-        {/* Cards go here */}
-      </div>
+        <div className="col-span-4">
+          <PlanSummaryCard accountNumber={session.accountNumber} />
+        </div>
+        <div className="col-span-8">
+          <UsageMeterCard />
+        </div>
 
+        <div className="col-span-4">
+          <BillingCard />
+        </div>
+        <div className="col-span-8">
+          <ActivityFeed />
+        </div>
+
+        <div className="col-span-12">
+          <UsageHistoryChart />
+        </div>
+
+        <div className="col-span-4">
+          <SupportTickets />
+        </div>
+        <div className="col-span-4">
+          <AddOnsCard />
+        </div>
+        <div className="col-span-4">
+          <UpgradeBanner percentUsed={77} />
+        </div>
+      </div>
     </div>
   )
 }
