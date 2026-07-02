@@ -55,7 +55,7 @@ export default function LoginPage() {
 
           <div className="flex flex-col gap-4">
             {['View real-time usage', 'Manage your plan', 'Pay your bill'].map(text => (
-              <div key={text} className="flex items-center gap-3 text-white/92 text-[15px] leading-relaxed">
+              <div key={text} className="flex items-center gap-3 text-white/90 text-[15px] leading-relaxed">
                 <CheckCircle />
                 <span>{text}</span>
               </div>
