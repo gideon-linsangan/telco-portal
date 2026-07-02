@@ -7,8 +7,8 @@ import type {
   BlogPost,
 } from '@/types/contentful'
 
-const SPACE = process.env.CONTENTFUL_SPACE_ID
 // Strip BOM (U+FEFF) that can appear when env vars are copy-pasted from certain editors
+const SPACE = process.env.CONTENTFUL_SPACE_ID?.replace(/﻿/g, '')
 const TOKEN = process.env.CONTENTFUL_DELIVERY_TOKEN?.replace(/﻿/g, '')
 const BASE = `https://api.contentful.com/spaces/${SPACE}/environments/master`
 
@@ -26,6 +26,8 @@ async function getEntries(contentType: string, params: Record<string, string> = 
     console.warn(`[Contentful] Missing env vars — falling back to stub for "${contentType}"`)
     return []
   }
+  console.log(`[Contentful] space="${SPACE}" token_prefix="${TOKEN.slice(0, 8)}..."`)
+
 
   const qs = new URLSearchParams({ content_type: contentType, ...params }).toString()
   console.log(`[Contentful] Fetching "${contentType}"`)
@@ -36,7 +38,8 @@ async function getEntries(contentType: string, params: Record<string, string> = 
   })
 
   if (!res.ok) {
-    console.error(`[Contentful] HTTP ${res.status} for "${contentType}" — falling back to stub`)
+    const body = await res.text().catch(() => '')
+    console.error(`[Contentful] HTTP ${res.status} for "${contentType}": ${body.slice(0, 200)}`)
     return []
   }
 
