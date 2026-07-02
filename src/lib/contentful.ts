@@ -26,7 +26,7 @@ async function getEntries(contentType: string, params: Record<string, string> = 
   const qs = new URLSearchParams({ content_type: contentType, ...params }).toString()
   const res = await fetch(`${BASE}/entries?${qs}`, {
     headers: { Authorization: `Bearer ${TOKEN}` },
-    next: { revalidate: 60 },
+    cache: 'no-store',
   })
 
   if (!res.ok) return []

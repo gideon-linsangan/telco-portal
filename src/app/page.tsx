@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { SiteHeader } from '@/components/SiteHeader'
 import { HeroSection } from '@/components/HeroSection'
 import { TrustBar } from '@/components/TrustBar'
