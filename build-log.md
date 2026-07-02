@@ -2,7 +2,7 @@
 
 ## Setup checklist
 
-- [ ] `npm run dev` running locally
+- [x] `npm run dev` running locally
 - [ ] Vercel URL live
 - [ ] `.env.local` has Contentful keys
 - [x] `tailwind.config.ts` has brand tokens
