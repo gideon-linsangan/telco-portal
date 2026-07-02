@@ -48,3 +48,23 @@
 
 - [x] `src/app/page.tsx` — assembles all 7 homepage sections in order:
   SiteHeader → HeroSection → TrustBar → FeatureBlocks → PlansSection → PromoBanner → BlogSection → SiteFooter
+
+## Contentful integration
+
+- [x] `src/types/contentful.ts` — typed interfaces for all 7 content models (HeroData, FeatureBlock, StatBlock, PricingPlan, PromoBanner, BlogPost, SeoMeta)
+- [x] `src/lib/contentful.ts` — Management API client (CFPAT) with per-content-type stub fallback; `cache: 'no-store'` on every fetch
+- [x] Content types and entries seeded in Contentful space `pjbi9mgz7500` (ATCP Training - Space 1)
+- [x] `src/app/page.tsx` rewritten as async Server Component; `export const dynamic = 'force-dynamic'` to prevent static prerender
+- [x] All homepage components converted to accept typed data props (no more direct stub imports or client-side hooks)
+- [x] `PlansSection` converted from `'use client'` hook pattern to Server Component receiving `data` prop
+- [x] Vercel env vars set: `CONTENTFUL_SPACE_ID`, `CONTENTFUL_DELIVERY_TOKEN` (CFPAT)
+- [x] BOM (`U+FEFF`) stripped from both env vars at read time — root cause of silent fallback-to-stub on Vercel
+- [x] Console logging added to `src/lib/contentful.ts` — logs source (Contentful ✓ or stub fallback) and any errors per content type
+- **Confirmed live on Vercel:** all 6 content types served from Contentful (verified via `vercel logs`)
+- **Note:** `CONTENTFUL_DELIVERY_TOKEN` env var holds a CFPAT — do not replace with a Delivery API token; other team members rely on it
+
+## Next up
+
+- [ ] Login page `/login` — `useActionState`, Server Action `src/app/actions/auth.ts`
+- [ ] Auth middleware `proxy.ts` — JWT validation, redirect to `/login` if no session
+- [ ] Dashboard `/dashboard` — 7 card components: AccountCard, BillingCard, UsageMeter, UsageHistoryChart, ActivityFeed, TicketsCard, AddonsCard
