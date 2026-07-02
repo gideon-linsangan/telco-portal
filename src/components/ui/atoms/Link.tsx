@@ -10,7 +10,7 @@ const variantMap = {
   inline: 'text-brand-signature hover:text-brand-mid font-semibold transition-colors',
   arrow:  'group inline-flex items-center gap-1 text-brand-signature hover:text-brand-mid font-semibold transition-colors',
   nav:    'text-white/85 hover:text-white hover:bg-white/10 px-3 py-1.5 rounded-md text-[14px] font-medium transition-all',
-  muted:  'text-neutral-slate hover:text-neutral-ink transition-colors',
+  muted:  'text-neutral-slate hover:text-white transition-colors',
 }
 
 export function Link({ variant, href, children }: LinkProps) {
