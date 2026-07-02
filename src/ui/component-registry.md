@@ -64,6 +64,7 @@
 
 | Component | Path | Story | Data source | Used in |
 |-----------|------|-------|-------------|---------|
+| `SiteHeader` | `components/SiteHeader.tsx` | TN-001 | None | Public pages |
 
 ---
 
