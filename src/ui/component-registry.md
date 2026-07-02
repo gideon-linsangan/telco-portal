@@ -66,6 +66,8 @@
 |-----------|------|-------|-------------|---------|
 | `SiteHeader` | `components/SiteHeader.tsx` | TN-001 | None | Public pages |
 | `SiteFooter` | `components/SiteFooter.tsx` | TN-002 | None | Public pages |
+| `HeroSection` | `components/HeroSection.tsx` | TN-003 | None | Homepage |
+| `NetworkIllustration` | `components/NetworkIllustration.tsx` | TN-003 | None | HeroSection |
 
 ---
 
