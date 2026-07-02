@@ -8,7 +8,8 @@ import type {
 } from '@/types/contentful'
 
 const SPACE = process.env.CONTENTFUL_SPACE_ID
-const TOKEN = process.env.CONTENTFUL_DELIVERY_TOKEN
+// Strip BOM (U+FEFF) that can appear when env vars are copy-pasted from certain editors
+const TOKEN = process.env.CONTENTFUL_DELIVERY_TOKEN?.replace(/﻿/g, '')
 const BASE = `https://api.contentful.com/spaces/${SPACE}/environments/master`
 
 interface CmaEntry {
