@@ -68,6 +68,11 @@
 | `SiteFooter` | `components/SiteFooter.tsx` | TN-002 | None | Public pages |
 | `HeroSection` | `components/HeroSection.tsx` | TN-003 | None | Homepage |
 | `NetworkIllustration` | `components/NetworkIllustration.tsx` | TN-003 | None | HeroSection |
+| `TrustBar` | `components/TrustBar.tsx` | TN-004 | `stubs/stats.json` | Homepage |
+| `PlansSection` | `components/PlansSection.tsx` | TN-005 | `GET /api/plans` | Homepage |
+| `PromoBanner` | `components/PromoBanner.tsx` | TN-006 | `stubs/banner.json` | Homepage |
+| `FeatureBlocks` | `components/FeatureBlocks.tsx` | TN-007 | `stubs/features.json` | Homepage |
+| `BlogSection` | `components/BlogSection.tsx` | TN-008 | `stubs/posts.json` | Homepage |
 
 ---
 
