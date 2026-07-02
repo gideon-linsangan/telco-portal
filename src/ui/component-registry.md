@@ -46,6 +46,16 @@
 
 | Component | Path | Props | Used in |
 |-----------|------|-------|---------|
+| `FormField` | `components/ui/molecules/FormField.tsx` | `id, label, type, placeholder?, error?, value?, onChange?` | Login, signup forms |
+| `NavLink` | `components/ui/molecules/NavLink.tsx` | `href, label, active?` | Site header nav |
+| `SidebarNavItem` | `components/ui/molecules/SidebarNavItem.tsx` | `href, label, icon, active?` | Dashboard sidebar |
+| `StatTile` | `components/ui/molecules/StatTile.tsx` | `label, value, background?` | UsageMeter card |
+| `KeyValueRow` | `components/ui/molecules/KeyValueRow.tsx` | `label, value` | Billing, plan detail rows |
+| `SectionHeader` | `components/ui/molecules/SectionHeader.tsx` | `eyebrow?, heading, align?` | Homepage sections |
+| `PageHeader` | `components/ui/molecules/PageHeader.tsx` | `greeting, subtitle` | Dashboard page |
+| `AnnouncementPill` | `components/ui/molecules/AnnouncementPill.tsx` | `label` | Hero section |
+| `UserChip` | `components/ui/molecules/UserChip.tsx` | `name, planName, initials` | Sidebar footer |
+| `CardHeader` | `components/ui/molecules/CardHeader.tsx` | `label, action?` | Dashboard cards |
 
 ---
 
