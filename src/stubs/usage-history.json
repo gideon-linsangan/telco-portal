@@ -1,8 +1,11 @@
-[
-  { "month": "Jan 2026", "usedGB": 28.1, "totalGB": 50, "cost": 65 },
-  { "month": "Feb 2026", "usedGB": 32.4, "totalGB": 50, "cost": 65 },
-  { "month": "Mar 2026", "usedGB": 45.2, "totalGB": 50, "cost": 65 },
-  { "month": "Apr 2026", "usedGB": 41.8, "totalGB": 50, "cost": 65 },
-  { "month": "May 2026", "usedGB": 50.0, "totalGB": 50, "cost": 65 },
-  { "month": "Jun 2026", "usedGB": 38.4, "totalGB": 50, "cost": 65 }
-]
+{
+  "totalGB": 50,
+  "months": [
+    { "month": "2026-01", "label": "Jan", "usedGB": 28, "cost": 65, "isCurrent": false },
+    { "month": "2026-02", "label": "Feb", "usedGB": 32, "cost": 65, "isCurrent": false },
+    { "month": "2026-03", "label": "Mar", "usedGB": 45, "cost": 65, "isCurrent": false },
+    { "month": "2026-04", "label": "Apr", "usedGB": 41, "cost": 65, "isCurrent": false },
+    { "month": "2026-05", "label": "May", "usedGB": 50, "cost": 65, "isCurrent": false },
+    { "month": "2026-06", "label": "Jun", "usedGB": 38, "cost": null, "isCurrent": true }
+  ]
+}

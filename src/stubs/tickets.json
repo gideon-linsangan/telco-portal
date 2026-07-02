@@ -1,18 +1,4 @@
 [
-  {
-    "id": "TKT-4821",
-    "subject": "Billing query — June invoice",
-    "status": "open",
-    "priority": "medium",
-    "createdAt": "2026-06-19T10:15:00Z",
-    "updatedAt": "2026-06-20T09:30:00Z"
-  },
-  {
-    "id": "TKT-4756",
-    "subject": "Network connectivity issue — home address",
-    "status": "resolved",
-    "priority": "low",
-    "createdAt": "2026-06-10T16:45:00Z",
-    "updatedAt": "2026-06-12T14:20:00Z"
-  }
+  { "id": "TKT-2891", "subject": "Billing query", "status": "open", "priority": "medium", "createdAt": "2026-06-15T09:00:00.000Z", "updatedAt": "2026-06-18T14:30:00.000Z" },
+  { "id": "TKT-2734", "subject": "Network issue", "status": "resolved", "priority": "low", "createdAt": "2026-06-05T11:00:00.000Z", "updatedAt": "2026-06-10T16:00:00.000Z" }
 ]
