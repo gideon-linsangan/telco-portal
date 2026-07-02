@@ -1,25 +1,21 @@
-import { Text } from '@/components/ui/atoms/Text'
 import type { StatBlock } from '@/types/contentful'
 
 export function TrustBar({ data }: { data: StatBlock[] }) {
   const sorted = [...data].sort((a, b) => a.order - b.order)
 
   return (
-    <section className="w-full bg-white border-b border-neutral-border">
-      <div className="max-w-7xl mx-auto px-8 py-10">
-        <div className="flex items-center justify-center divide-x divide-neutral-border">
-          {sorted.map((stat) => (
-            <div key={stat.label} className="flex flex-col items-center gap-1.5 px-16">
-              <Text variant="metric" color="brand-signature">
-                {stat.value}
-              </Text>
-              <Text variant="label" color="slate">
-                {stat.label}
-              </Text>
-            </div>
-          ))}
+    <div className="w-full bg-brand-deep border-t border-white/10">
+      <div className="max-w-7xl mx-auto px-8 h-20 flex items-center">
+        <div className="flex items-center gap-16">
+          {sorted.flatMap((stat, i) => [
+            i > 0 ? <div key={`div-${i}`} className="w-px h-8 bg-white/15 flex-shrink-0" /> : null,
+            <div key={stat.label} className="flex flex-col gap-0.5">
+              <span className="text-white text-[20px] font-bold tracking-tight leading-none">{stat.value}</span>
+              <span className="text-brand-light text-[11px] font-medium uppercase tracking-widest">{stat.label}</span>
+            </div>,
+          ])}
         </div>
       </div>
-    </section>
+    </div>
   )
 }
