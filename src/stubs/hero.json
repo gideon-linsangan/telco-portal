@@ -1,0 +1,7 @@
+{
+  "badgeText": "5G Now Live Nationwide",
+  "headline": "Australia's fastest 5G network.",
+  "subheadline": "Flexible plans. No lock-in contracts. Cancel any time.",
+  "primaryCta": { "label": "View plans", "href": "#plans" },
+  "secondaryCta": { "label": "Check coverage", "href": "#coverage" }
+}

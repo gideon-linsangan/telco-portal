@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Starter",
+    "price": 35,
+    "tagline": "Great for light users",
+    "features": [
+      "15GB data",
+      "Unlimited calls & texts",
+      "5G ready",
+      "Basic hotspot"
+    ],
+    "ctaLabel": "Get Starter",
+    "ctaHref": "#",
+    "featured": false,
+    "badgeText": null
+  },
+  {
+    "name": "Plus",
+    "price": 65,
+    "tagline": "Our most popular plan",
+    "features": [
+      "50GB data",
+      "Unlimited calls & texts",
+      "5G Ultra",
+      "20GB hotspot",
+      "International SMS"
+    ],
+    "ctaLabel": "Get Plus",
+    "ctaHref": "#",
+    "featured": true,
+    "badgeText": "Most popular"
+  },
+  {
+    "name": "Max",
+    "price": 95,
+    "tagline": "For power users",
+    "features": [
+      "Unlimited data",
+      "Unlimited calls & texts",
+      "5G Ultra+",
+      "Unlimited hotspot",
+      "International calls — 20 countries",
+      "Priority network access"
+    ],
+    "ctaLabel": "Get Max",
+    "ctaHref": "#",
+    "featured": false,
+    "badgeText": null
+  }
+]
