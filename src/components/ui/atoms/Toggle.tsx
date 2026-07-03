@@ -9,6 +9,7 @@ type ToggleProps = {
 export function Toggle({ checked, onChange, 'aria-label': ariaLabel }: ToggleProps) {
   return (
     <button
+      type="button"
       role="switch"
       aria-checked={checked}
       aria-label={ariaLabel}
