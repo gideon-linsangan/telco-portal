@@ -16,13 +16,13 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-brand-deep border-b border-white/8">
-      <div className="max-w-7xl mx-auto px-8 h-16 flex items-center">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 h-14 md:h-16 flex items-center">
 
         <NextLink href="/" className="flex-shrink-0 text-xl font-bold tracking-tight text-white">
           Telco<span className="text-brand-light">Now</span>
         </NextLink>
 
-        <nav aria-label="Main navigation" className="flex items-center gap-1 mx-auto">
+        <nav aria-label="Main navigation" className="hidden md:flex items-center gap-1 mx-auto">
           {NAV_LINKS.map(link => (
             <NavLink
               key={link.href}
@@ -33,16 +33,16 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3 flex-shrink-0">
+        <div className="flex items-center gap-2 md:gap-3 flex-shrink-0 ml-auto md:ml-0">
           <NextLink
             href="/login"
-            className="inline-flex items-center justify-center h-11 px-6 text-[14px] border border-white/70 text-white hover:bg-white/10 rounded-lg font-semibold transition-colors"
+            className="hidden md:inline-flex items-center justify-center h-11 px-6 text-[14px] border border-white/70 text-white hover:bg-white/10 rounded-lg font-semibold transition-colors"
           >
             Log in
           </NextLink>
           <NextLink
             href="/plans"
-            className="inline-flex items-center justify-center h-11 px-6 text-[14px] bg-brand-signature hover:bg-brand-mid text-white rounded-lg font-semibold transition-colors"
+            className="inline-flex items-center justify-center h-9 md:h-11 px-4 md:px-6 text-[13px] md:text-[14px] bg-brand-signature hover:bg-brand-mid text-white rounded-lg font-semibold transition-colors"
           >
             Get started
           </NextLink>

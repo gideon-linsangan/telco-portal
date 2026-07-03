@@ -68,15 +68,15 @@ function PlanCard({ plan }: { plan: Plan }) {
 
 export function PlansSection({ data }: { data: Plan[] }) {
   return (
-    <section className="w-full bg-white py-20">
-      <div className="max-w-7xl mx-auto px-8">
-        <div className="mb-12 text-center">
+    <section className="w-full bg-white py-12 md:py-20">
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <div className="mb-10 md:mb-12 text-center">
           <SectionHeader eyebrow="Pricing" heading="Simple, honest pricing." align="center" />
         </div>
 
-        <div className="flex gap-6 items-stretch">
-          {data.map(plan => (
-            <div key={plan.name} className="flex-1">
+        <div className="flex flex-col md:flex-row gap-6 md:items-stretch">
+          {[...data].sort((a, b) => a.price - b.price).map(plan => (
+            <div key={plan.name} className="w-full md:flex-1">
               <PlanCard plan={plan} />
             </div>
           ))}

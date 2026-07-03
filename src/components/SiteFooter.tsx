@@ -34,12 +34,12 @@ const COLUMNS = [
 export function SiteFooter() {
   return (
     <footer className="bg-neutral-ink w-full pt-16">
-      <div className="max-w-7xl mx-auto px-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
 
-        <div className="flex gap-12 pb-14">
+        <div className="flex flex-col md:flex-row gap-8 md:gap-12 pb-10 md:pb-14">
 
           {/* Brand column */}
-          <div className="[flex:1.4] flex flex-col gap-4">
+          <div className="md:[flex:1.4] flex flex-col gap-4">
             <NextLink href="/" className="text-xl font-bold tracking-tight text-white">
               Telco<span className="text-brand-light">Now</span>
             </NextLink>
@@ -51,7 +51,7 @@ export function SiteFooter() {
 
           {/* Link columns */}
           {COLUMNS.map(col => (
-            <div key={col.heading} className="flex-1 flex flex-col">
+            <div key={col.heading} className="md:flex-1 flex flex-col">
               <div className="mb-3">
                 <Text variant="label" color="slate">{col.heading}</Text>
               </div>
@@ -68,7 +68,7 @@ export function SiteFooter() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/10 py-5 flex items-center justify-between">
+        <div className="border-t border-white/10 py-5 flex flex-col md:flex-row items-center gap-1 md:justify-between">
           <span className="text-[13px] text-neutral-slate">© 2026 TelcoNow Pty Ltd</span>
           <span className="text-[13px] text-neutral-slate">All prices include GST</span>
         </div>

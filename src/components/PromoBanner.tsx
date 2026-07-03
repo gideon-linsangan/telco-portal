@@ -16,7 +16,7 @@ function GiftIcon() {
 export function PromoBanner({ data }: { data: PromoBannerType }) {
   return (
     <section className="w-full bg-brand-ghost border-y border-brand-light">
-      <div className="max-w-7xl mx-auto px-8 h-[120px] flex items-center justify-between gap-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 md:h-[120px] flex flex-col md:flex-row items-start md:items-center justify-between gap-5 md:gap-8">
 
         <div className="flex items-center gap-5">
           <div className="w-12 h-12 rounded-xl bg-brand-light flex items-center justify-center flex-shrink-0">
