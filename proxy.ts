@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { decrypt } from '@/lib/session'
-import { cookies } from 'next/headers'
 
 const protectedRoutes = ['/dashboard']
 const publicOnlyRoutes = ['/login']
@@ -10,7 +9,8 @@ export default async function proxy(req: NextRequest) {
   const isProtected = protectedRoutes.some((r) => path === r || path.startsWith(r + '/'))
   const isPublicOnly = publicOnlyRoutes.includes(path)
 
-  const cookie = (await cookies()).get('session')?.value
+  // Read cookie directly from the request — next/headers is for Server Components only
+  const cookie = req.cookies.get('session')?.value
   const session = await decrypt(cookie)
 
   if (isProtected && !session?.userId) {
