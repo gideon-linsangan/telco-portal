@@ -96,14 +96,8 @@ export function UsageHistoryChart() {
             let barClass = 'rounded-t-[4px] bg-brand-signature'
 
             if (m.isCurrent) {
-              barClass = 'rounded-t-[4px]'
-              barStyle = {
-                height: `${barHeight}px`,
-                width: '28px',
-                background: '#F5EEFF',
-                border: '1.5px dashed rgba(161,0,255,0.5)',
-                opacity: 0.65,
-              }
+              barClass = 'rounded-t-[4px] bg-brand-ghost border border-dashed border-brand-signature/50 opacity-65'
+              barStyle = { height: `${barHeight}px`, width: '28px' }
             } else if (isAtCap) {
               barClass = 'rounded-t-[4px] bg-brand-light'
             }

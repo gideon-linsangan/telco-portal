@@ -36,10 +36,10 @@ export default async function DashboardPage() {
   }).format(new Date())
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-8">
       {/* Page header */}
       <div className="mb-7">
-        <h1 className="text-[28px] font-bold text-neutral-ink tracking-tight mb-1">
+        <h1 className="text-[22px] md:text-[28px] font-bold text-neutral-ink tracking-tight mb-1">
           {getGreeting()}, {firstName}.
         </h1>
         <p className="text-[14px] text-neutral-slate">
@@ -49,32 +49,32 @@ export default async function DashboardPage() {
 
       {/* Dashboard grid */}
       <UsageProvider>
-        <div className="grid grid-cols-12 gap-6">
-          <div className="col-span-4">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
+          <div className="col-span-full md:col-span-4">
             <PlanSummaryCard />
           </div>
-          <div className="col-span-8">
+          <div className="col-span-full md:col-span-8">
             <UsageMeterCard />
           </div>
 
-          <div className="col-span-4">
+          <div className="col-span-full md:col-span-4">
             <BillingCard />
           </div>
-          <div className="col-span-8">
+          <div className="col-span-full md:col-span-8">
             <ActivityFeed />
           </div>
 
-          <div className="col-span-12">
+          <div className="col-span-full">
             <UsageHistoryChart />
           </div>
 
-          <div className="col-span-4">
+          <div className="col-span-full md:col-span-4">
             <SupportTickets />
           </div>
-          <div className="col-span-6">
+          <div className="col-span-full md:col-span-6">
             <AddOnsCard />
           </div>
-          <div className="col-span-6">
+          <div className="col-span-full md:col-span-6">
             <UpgradeBanner />
           </div>
         </div>

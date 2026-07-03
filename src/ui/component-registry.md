@@ -73,6 +73,16 @@
 | `PromoBanner` | `components/PromoBanner.tsx` | TN-006 | `stubs/banner.json` | Homepage |
 | `FeatureBlocks` | `components/FeatureBlocks.tsx` | TN-007 | `stubs/features.json` | Homepage |
 | `BlogSection` | `components/BlogSection.tsx` | TN-008 | `stubs/posts.json` | Homepage |
+| `Sidebar` | `components/dashboard/Sidebar.tsx` | TN-009 | None | Dashboard layout |
+| `SidebarNav` | `components/dashboard/SidebarNav.tsx` | TN-010 | None | Sidebar |
+| `PlanSummaryCard` | `components/dashboard/PlanSummaryCard.tsx` | TN-011 | `GET /api/stub/account` | Dashboard |
+| `UsageMeterCard` | `components/dashboard/UsageMeterCard.tsx` | TN-012 | `GET /api/stub/usage` | Dashboard |
+| `BillingCard` | `components/dashboard/BillingCard.tsx` | TN-013 | `GET /api/stub/billing` | Dashboard |
+| `ActivityFeed` | `components/dashboard/ActivityFeed.tsx` | TN-014 | `GET /api/stub/activity` | Dashboard |
+| `SupportTickets` | `components/dashboard/SupportTickets.tsx` | TN-015 | `GET /api/stub/tickets` | Dashboard |
+| `UsageHistoryChart` | `components/dashboard/UsageHistoryChart.tsx` | TN-016 | `GET /api/stub/usage-history` | Dashboard |
+| `AddOnsCard` | `components/dashboard/AddOnsCard.tsx` | TN-017 | `GET /api/stub/addons` | Dashboard |
+| `UpgradeBanner` | `components/dashboard/UpgradeBanner.tsx` | TN-018 | `UsageContext` (derived) | Dashboard |
 
 ---
 
@@ -80,6 +90,7 @@
 
 | Component | Path | Used in |
 |-----------|------|---------|
+| `ErrorState` | `components/ui/ErrorState.tsx` | All dashboard cards |
 
 ---
 
