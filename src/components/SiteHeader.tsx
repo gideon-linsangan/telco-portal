@@ -33,7 +33,15 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2 md:gap-3 flex-shrink-0 ml-auto md:ml-0">
+        <div className="flex items-center gap-3 md:gap-3 flex-shrink-0 ml-auto md:ml-0">
+          {/* Mobile: plain text link */}
+          <NextLink
+            href="/login"
+            className="md:hidden text-white/85 text-[13px] font-semibold hover:text-white transition-colors"
+          >
+            Log in
+          </NextLink>
+          {/* Desktop: bordered button */}
           <NextLink
             href="/login"
             className="hidden md:inline-flex items-center justify-center h-11 px-6 text-[14px] border border-white/70 text-white hover:bg-white/10 rounded-lg font-semibold transition-colors"

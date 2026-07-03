@@ -33,7 +33,7 @@ export default function LoginPage() {
     <div className="flex h-screen min-h-[600px] overflow-hidden">
 
       {/* ── Left panel ─────────────────────────────────── */}
-      <div className="w-[45%] bg-brand-deep flex flex-col relative overflow-hidden">
+      <div className="hidden md:flex md:w-[45%] bg-brand-deep flex-col relative overflow-hidden">
 
         {/* Wordmark */}
         <div className="px-9 py-8 relative z-10 flex-shrink-0">
@@ -99,7 +99,7 @@ export default function LoginPage() {
       </div>
 
       {/* ── Right panel ────────────────────────────────── */}
-      <div className="w-[55%] bg-white flex items-center justify-center p-12">
+      <div className="w-full md:w-[55%] bg-white flex items-center justify-center p-6 md:p-12">
         <div className="w-full max-w-[400px] flex flex-col">
 
           {/* Heading */}
