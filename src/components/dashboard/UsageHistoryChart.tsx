@@ -68,7 +68,7 @@ export function UsageHistoryChart() {
           <div className="flex items-center gap-1.5">
             <div
               className="w-6 h-[2px]"
-              style={{ background: 'repeating-linear-gradient(90deg, #460073 0 4px, transparent 4px 8px)', opacity: 0.5 }}
+              style={{ background: 'repeating-linear-gradient(90deg, var(--brand-deep) 0 4px, transparent 4px 8px)', opacity: 0.5 }}
             />
             <span>{totalGB}GB cap</span>
           </div>
@@ -80,7 +80,7 @@ export function UsageHistoryChart() {
         {/* Cap line */}
         <div
           className="absolute top-2 left-0 right-0 h-px"
-          style={{ background: 'repeating-linear-gradient(90deg, #460073 0 6px, transparent 6px 12px)', opacity: 0.35 }}
+          style={{ background: 'repeating-linear-gradient(90deg, var(--brand-deep) 0 6px, transparent 6px 12px)', opacity: 0.35 }}
         />
         <span className="absolute top-0 right-0 text-[10px] font-semibold text-brand-deep opacity-60 tracking-[0.03em]">
           {totalGB} GB cap

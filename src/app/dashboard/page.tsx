@@ -71,10 +71,10 @@ export default async function DashboardPage() {
           <div className="col-span-full md:col-span-4">
             <SupportTickets />
           </div>
-          <div className="col-span-full md:col-span-6">
+          <div className="col-span-full md:col-span-4">
             <AddOnsCard />
           </div>
-          <div className="col-span-full md:col-span-6">
+          <div className="col-span-full md:col-span-4">
             <UpgradeBanner />
           </div>
         </div>
