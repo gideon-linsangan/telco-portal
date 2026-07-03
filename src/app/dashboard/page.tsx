@@ -10,6 +10,7 @@ import { SupportTickets } from '@/components/dashboard/SupportTickets'
 import { UsageHistoryChart } from '@/components/dashboard/UsageHistoryChart'
 import { AddOnsCard } from '@/components/dashboard/AddOnsCard'
 import { UpgradeBanner } from '@/components/dashboard/UpgradeBanner'
+import { UsageProvider } from '@/context/UsageContext'
 
 function getGreeting(): string {
   const hour = new Date().getHours()
@@ -27,7 +28,7 @@ export default async function DashboardPage() {
   const firstName = session.name.split(' ')[0]
   const daysUntilBill = getDaysUntil(accountStub.renewalDate)
 
-  const dateLabel = new Intl.DateTimeFormat('en-AU', {
+  const dateLabel = new Intl.DateTimeFormat('en-GB', {
     weekday: 'long',
     day: 'numeric',
     month: 'long',
@@ -47,35 +48,37 @@ export default async function DashboardPage() {
       </div>
 
       {/* Dashboard grid */}
-      <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-4">
-          <PlanSummaryCard />
-        </div>
-        <div className="col-span-8">
-          <UsageMeterCard />
-        </div>
+      <UsageProvider>
+        <div className="grid grid-cols-12 gap-6">
+          <div className="col-span-4">
+            <PlanSummaryCard />
+          </div>
+          <div className="col-span-8">
+            <UsageMeterCard />
+          </div>
 
-        <div className="col-span-4">
-          <BillingCard />
-        </div>
-        <div className="col-span-8">
-          <ActivityFeed />
-        </div>
+          <div className="col-span-4">
+            <BillingCard />
+          </div>
+          <div className="col-span-8">
+            <ActivityFeed />
+          </div>
 
-        <div className="col-span-12">
-          <UsageHistoryChart />
-        </div>
+          <div className="col-span-12">
+            <UsageHistoryChart />
+          </div>
 
-        <div className="col-span-4">
-          <SupportTickets />
+          <div className="col-span-4">
+            <SupportTickets />
+          </div>
+          <div className="col-span-6">
+            <AddOnsCard />
+          </div>
+          <div className="col-span-6">
+            <UpgradeBanner />
+          </div>
         </div>
-        <div className="col-span-6">
-          <AddOnsCard />
-        </div>
-        <div className="col-span-6">
-          <UpgradeBanner percentUsed={77} />
-        </div>
-      </div>
+      </UsageProvider>
     </div>
   )
 }

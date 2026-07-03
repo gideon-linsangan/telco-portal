@@ -1,9 +1,11 @@
 'use client'
 
+import { useEffect } from 'react'
 import { useUsage } from '@/hooks/useUsage'
+import { useUsageContext } from '@/context/UsageContext'
+import { Badge } from '@/components/ui/atoms/Badge'
 import { ProgressBar } from '@/components/ui/atoms/ProgressBar'
 import { SkeletonBlock } from '@/components/ui/atoms/SkeletonBlock'
-import { CardHeader } from '@/components/ui/molecules/CardHeader'
 import { StatTile } from '@/components/ui/molecules/StatTile'
 import { ErrorState } from '@/components/ui/ErrorState'
 
@@ -11,12 +13,17 @@ function UsageMeterSkeleton() {
   return (
     <div className="bg-white border border-neutral-border rounded-xl shadow-card p-6">
       <div className="animate-pulse">
-        <SkeletonBlock width="w-1/4" height="h-3" />
-        <div className="mt-4 mb-2">
-          <SkeletonBlock width="w-1/2" height="h-8" />
+        <div className="flex justify-between items-start">
+          <div className="flex flex-col gap-2">
+            <SkeletonBlock width="w-24" height="h-3" />
+            <SkeletonBlock width="w-40" height="h-9" />
+          </div>
+          <SkeletonBlock width="w-24" height="h-6" rounded="rounded-full" />
         </div>
-        <SkeletonBlock width="w-full" height="h-2.5" />
-        <div className="flex gap-4 mt-4">
+        <div className="mt-5">
+          <SkeletonBlock width="w-full" height="h-2.5" />
+        </div>
+        <div className="grid grid-cols-3 gap-4 mt-5">
           <SkeletonBlock width="w-full" height="h-16" />
           <SkeletonBlock width="w-full" height="h-16" />
           <SkeletonBlock width="w-full" height="h-16" />
@@ -27,7 +34,7 @@ function UsageMeterSkeleton() {
 }
 
 function formatDateShort(iso: string): string {
-  return new Intl.DateTimeFormat('en-AU', {
+  return new Intl.DateTimeFormat('en-GB', {
     day: 'numeric',
     month: 'short',
   }).format(new Date(iso))
@@ -35,6 +42,13 @@ function formatDateShort(iso: string): string {
 
 export function UsageMeterCard() {
   const state = useUsage()
+  const { publishPercent } = useUsageContext()
+
+  useEffect(() => {
+    if (state.status === 'success') {
+      publishPercent(Math.round((state.data.usedGB / state.data.totalGB) * 100))
+    }
+  }, [state])
 
   if (state.status === 'loading') return <UsageMeterSkeleton />
   if (state.status === 'error') return (
@@ -44,34 +58,50 @@ export function UsageMeterCard() {
   const { usedGB, totalGB, cycleStartDate, cycleEndDate, overageRate } = state.data
 
   const percentUsed = Math.round((usedGB / totalGB) * 100)
+  const percentUsedDecimal = ((usedGB / totalGB) * 100).toFixed(1)
   const remainingGB = (totalGB - usedGB).toFixed(1)
+  const daysRemaining = Math.max(
+    0,
+    Math.ceil((new Date(cycleEndDate).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
+  )
   const cycleRange = `${formatDateShort(cycleStartDate)} – ${formatDateShort(cycleEndDate)}`
   const overageDisplay = `$${overageRate.toFixed(2)}/MB`
-  const daysRemaining = Math.ceil(
-    (new Date(cycleEndDate).getTime() - Date.now()) / (1000 * 60 * 60 * 24)
-  )
 
   return (
-    <div className="bg-white border border-neutral-border rounded-xl shadow-card p-6">
-      <CardHeader
-        label="Data usage"
-        action={
-          <span className="text-[13px] font-semibold text-neutral-slate">
-            {percentUsed}% used · {daysRemaining} days left
-          </span>
-        }
-      />
-      <div className="mt-4 mb-3">
-        <span className="text-[28px] font-bold text-neutral-ink">{usedGB} GB</span>
-        <span className="text-[15px] text-neutral-slate ml-2">of {totalGB} GB</span>
+    <div className="bg-white border border-neutral-border rounded-xl shadow-card p-6 flex flex-col gap-5">
+      {/* Header: usage on left, badge + days on right */}
+      <div className="flex items-start justify-between">
+        <div>
+          <p className="text-xs font-medium uppercase tracking-[0.06em] text-neutral-slate mb-1.5">
+            Data Usage
+          </p>
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-[32px] font-bold text-neutral-ink tracking-[-0.02em]">
+              {usedGB} GB
+            </span>
+            <span className="text-[16px] text-neutral-slate">of {totalGB} GB</span>
+          </div>
+        </div>
+        <div className="text-right">
+          <Badge variant="warning">{percentUsedDecimal}% used</Badge>
+          <p className="text-[12px] text-neutral-slate mt-1.5">
+            {daysRemaining} day{daysRemaining !== 1 ? 's' : ''} remaining
+          </p>
+        </div>
       </div>
-      <ProgressBar percent={percentUsed} showThreshold />
-      {percentUsed >= 80 && (
-        <p className="text-semantic-warning text-[13px] mt-2">
-          You&apos;re approaching your data limit — {percentUsed}% used.
-        </p>
-      )}
-      <div className="flex gap-4 mt-4">
+
+      {/* Progress bar + threshold labels */}
+      <div>
+        <ProgressBar percent={percentUsed} />
+        <div className="flex justify-between mt-1.5 text-[11px] text-neutral-slate">
+          <span>0 GB</span>
+          <span className="text-semantic-warning font-semibold">▲ 80% warning threshold</span>
+          <span>{totalGB} GB</span>
+        </div>
+      </div>
+
+      {/* Stat tiles */}
+      <div className="grid grid-cols-3 gap-4">
         <StatTile label="Remaining" value={`${remainingGB} GB`} />
         <StatTile label="Cycle" value={cycleRange} />
         <StatTile label="Overage rate" value={overageDisplay} />

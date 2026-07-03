@@ -13,10 +13,13 @@ function SupportTicketsSkeleton() {
         <SkeletonBlock width="w-1/3" height="h-3" />
         {[1, 2].map(i => (
           <div key={i} className="mt-3 border border-neutral-border rounded-lg p-3.5 flex flex-col gap-2">
-            <SkeletonBlock width="w-3/4" height="h-3" />
+            <div className="flex justify-between">
+              <SkeletonBlock width="w-3/4" height="h-3" />
+              <SkeletonBlock width="w-14" height="h-5" rounded="rounded-full" />
+            </div>
             <div className="flex gap-2">
-              <SkeletonBlock width="w-16" height="h-5" rounded="rounded-full" />
-              <SkeletonBlock width="w-16" height="h-5" rounded="rounded-full" />
+              <SkeletonBlock width="w-20" height="h-5" rounded="rounded-full" />
+              <SkeletonBlock width="w-16" height="h-3" />
             </div>
           </div>
         ))}
@@ -28,12 +31,6 @@ function SupportTicketsSkeleton() {
 const statusVariantMap: Record<string, 'warning' | 'success'> = {
   open: 'warning',
   resolved: 'success',
-}
-
-const priorityVariantMap: Record<string, 'neutral' | 'error'> = {
-  low: 'neutral',
-  medium: 'neutral',
-  high: 'error',
 }
 
 export function SupportTickets() {
@@ -48,16 +45,16 @@ export function SupportTickets() {
   const openCount = tickets.filter(t => t.status === 'open').length
 
   const formatDate = (iso: string) =>
-    new Intl.DateTimeFormat('en-AU', {
+    new Intl.DateTimeFormat('en-GB', {
       day: 'numeric',
       month: 'short',
       year: 'numeric',
     }).format(new Date(iso))
 
   return (
-    <div className="bg-white border border-neutral-border rounded-xl shadow-card p-6">
+    <div className="bg-white border border-neutral-border rounded-xl shadow-card p-6 flex flex-col gap-4">
       <CardHeader
-        label="Support tickets"
+        label="Support Tickets"
         action={
           openCount > 0 ? (
             <Badge variant="warning">{openCount} open</Badge>
@@ -65,9 +62,9 @@ export function SupportTickets() {
         }
       />
       {tickets.length === 0 ? (
-        <p className="text-neutral-slate text-[14px] text-center py-8">No support tickets</p>
+        <p className="text-neutral-slate text-[14px] text-center py-6">No support tickets</p>
       ) : (
-        <div className="mt-4 flex flex-col gap-3">
+        <div className="flex flex-col gap-2.5">
           {tickets.map(ticket => (
             <div
               key={ticket.id}
@@ -80,7 +77,7 @@ export function SupportTickets() {
                 </Badge>
               </div>
               <div className="flex items-center gap-2">
-                <Badge variant={priorityVariantMap[ticket.priority] ?? 'neutral'}>
+                <Badge variant="neutral">
                   {ticket.priority.charAt(0).toUpperCase() + ticket.priority.slice(1)} priority
                 </Badge>
                 <span className="text-[12px] text-neutral-slate">{formatDate(ticket.updatedAt)}</span>
@@ -89,7 +86,7 @@ export function SupportTickets() {
           ))}
         </div>
       )}
-      <button className="w-full mt-4 border border-brand-signature text-brand-signature text-[13px] font-semibold h-9 rounded-lg hover:bg-brand-ghost transition-colors">
+      <button className="w-full border border-brand-signature text-brand-signature text-[13px] font-semibold h-9 rounded-lg hover:bg-brand-ghost transition-colors">
         + Raise a ticket
       </button>
     </div>

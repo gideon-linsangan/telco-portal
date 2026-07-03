@@ -47,16 +47,9 @@ export function PlanSummaryCard() {
 
   const { planName, dataAllowanceGB, monthlyCost, renewalDate, contractType, status } = state.data
 
-  const formattedCost = new Intl.NumberFormat('en-AU', {
-    style: 'currency',
-    currency: 'AUD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(monthlyCost)
-
-  const formattedDate = new Intl.DateTimeFormat('en-AU', {
+  const formattedDate = new Intl.DateTimeFormat('en-GB', {
     day: 'numeric',
-    month: 'long',
+    month: 'short',
     year: 'numeric',
   }).format(new Date(renewalDate))
 
@@ -65,7 +58,7 @@ export function PlanSummaryCard() {
   return (
     <div className="bg-white border border-neutral-border rounded-xl shadow-card p-6 flex flex-col gap-4">
       <CardHeader
-        label="Current plan"
+        label="Current Plan"
         action={
           <Badge variant={statusVariant} dot>
             {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -74,14 +67,12 @@ export function PlanSummaryCard() {
       />
       <div>
         <div className="flex items-center gap-2 mb-1.5">
-          <span className="text-[26px] font-bold text-brand-deep leading-none">{planName}</span>
-          <span className="text-[12px] font-semibold text-brand-signature bg-brand-ghost px-2 py-0.5 rounded-full">
-            {dataAllowanceGB}GB
-          </span>
+          <span className="text-[26px] font-bold text-brand-deep leading-none tracking-[-0.02em]">{planName}</span>
+          <Badge variant="purple">{dataAllowanceGB}GB</Badge>
         </div>
         <div className="flex items-baseline gap-1">
-          <span className="text-[28px] font-bold text-brand-deep">{formattedCost}</span>
-          <span className="text-[14px] text-neutral-slate">/mo</span>
+          <span className="text-[28px] font-bold text-neutral-ink tracking-[-0.02em]">${monthlyCost}</span>
+          <span className="text-[14px] font-normal text-neutral-slate">/mo</span>
         </div>
       </div>
       <div className="h-px bg-neutral-border" />

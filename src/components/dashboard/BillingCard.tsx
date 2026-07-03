@@ -13,7 +13,7 @@ function BillingSkeleton() {
       <div className="animate-pulse">
         <SkeletonBlock width="w-1/3" height="h-3" />
         <div className="mt-4 flex flex-col gap-2">
-          <SkeletonBlock width="w-1/2" height="h-8" />
+          <SkeletonBlock width="w-1/2" height="h-10" />
           <SkeletonBlock width="w-1/3" height="h-3" />
         </div>
         <div className="h-px bg-neutral-border my-4" />
@@ -26,16 +26,16 @@ function BillingSkeleton() {
   )
 }
 
-const paymentStatusMap: Record<string, 'success' | 'error'> = {
+const paymentStatusVariant: Record<string, 'success' | 'error'> = {
   paid: 'success',
   failed: 'error',
   overdue: 'error',
 }
 
 const VisaIcon = () => (
-  <svg width="32" height="20" viewBox="0 0 32 20" fill="none">
-    <rect width="32" height="20" rx="3" fill="#1A1F71"/>
-    <path d="M13.5 13.5H11.3L12.7 6.5H14.9L13.5 13.5ZM9.8 6.5L7.7 11.2L7.5 10.3L6.8 7.2C6.7 6.8 6.4 6.5 6 6.5H2.5L2.4 6.7C3.2 6.9 4 7.2 4.8 7.6L6.7 13.5H9L12.8 6.5H9.8ZM27.5 13.5H29.5L27.7 6.5H25.9C25.5 6.5 25.2 6.7 25.1 7L21.5 13.5H23.8L24.3 12.1H27L27.5 13.5ZM24.9 10.4L26 7.5L26.6 10.4H24.9ZM21.3 8.4L21.6 6.7C20.9 6.5 20.2 6.4 19.5 6.4C17.7 6.4 16.4 7.3 16.4 8.7C16.4 9.7 17.3 10.3 18 10.7C18.7 11.1 19 11.3 19 11.6C19 12.1 18.4 12.3 17.8 12.3C17 12.3 16.2 12.1 15.5 11.8L15.2 11.7L14.9 13.4C15.7 13.7 16.6 13.9 17.5 13.9C19.4 13.9 20.7 13 20.7 11.5C20.7 10.6 20.1 10 18.9 9.5C18.3 9.1 17.9 8.9 17.9 8.6C17.9 8.3 18.2 7.9 19 7.9C19.6 7.9 20.2 8 20.7 8.2L21 8.3L21.3 8.4Z" fill="white"/>
+  <svg width="28" height="18" viewBox="0 0 28 18" fill="none">
+    <rect width="28" height="18" rx="3" fill="#1A1F71"/>
+    <path d="M11 13H9.4l1-5.8H12L11 13zm7.8-5.6c-.4-.15-.95-.3-1.67-.3-1.84 0-3.13.9-3.14 2.18-.01.95.9 1.48 1.58 1.8.7.32.94.53.94.82 0 .44-.56.64-1.08.64-.72 0-1.1-.1-1.7-.33l-.23-.1-.25 1.45c.42.18 1.18.34 1.97.34 1.96 0 3.22-.9 3.24-2.27.01-.76-.48-1.33-1.52-1.8-.63-.31-1.02-.52-1.02-.83 0-.28.33-.57 1.04-.57.6-.01 1.03.12 1.36.25l.16.07.25-1.35zm2.43-.2h-1.43c-.44 0-.77.12-.96.57L17.4 13h1.96l.39-1h2.39l.23 1H24l-1.57-5.8zm-2.3 3.6l.74-1.88.43 1.88h-1.17zM8.6 7.2l-1.83 3.96-.2-.96C6.23 9.3 5.4 8.4 4.5 8l1.67 5H8.1L10.7 7.2H8.6z" fill="#FAFAFA"/>
   </svg>
 )
 
@@ -49,18 +49,8 @@ export function BillingCard() {
 
   const { nextPayment, lastPayment, paymentMethod } = state.data
 
-  const formatAUD = (amount: number) =>
-    new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(amount)
-
-  const formatDate = (iso: string) =>
-    new Intl.DateTimeFormat('en-AU', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    }).format(new Date(iso))
-
   const formatDateShort = (iso: string) =>
-    new Intl.DateTimeFormat('en-AU', {
+    new Intl.DateTimeFormat('en-GB', {
       day: 'numeric',
       month: 'short',
       year: 'numeric',
@@ -68,10 +58,10 @@ export function BillingCard() {
 
   const lastPaymentValue = (
     <span className="flex items-center gap-2">
-      <Badge variant={paymentStatusMap[lastPayment.status] ?? 'neutral'}>
+      <span className="text-[13px] font-semibold text-neutral-ink">{formatDateShort(lastPayment.date)}</span>
+      <Badge variant={paymentStatusVariant[lastPayment.status] ?? 'neutral'}>
         {lastPayment.status.charAt(0).toUpperCase() + lastPayment.status.slice(1)}
       </Badge>
-      <span className="text-[13px] text-neutral-slate">{formatDateShort(lastPayment.date)}</span>
     </span>
   )
 
@@ -83,25 +73,27 @@ export function BillingCard() {
   )
 
   return (
-    <div className="bg-white border border-neutral-border rounded-xl shadow-card p-6">
+    <div className="bg-white border border-neutral-border rounded-xl shadow-card p-6 flex flex-col gap-4">
       <CardHeader label="Billing" />
-      <div className="mt-4">
-        <p className="text-[11px] font-medium uppercase tracking-wider text-neutral-slate mb-1">
-          Next payment
-        </p>
+      <div>
+        <p className="text-[12px] text-neutral-slate mb-1">Next payment</p>
         <div className="flex items-baseline gap-1.5">
-          <span className="text-[36px] font-bold text-brand-deep leading-none">{formatAUD(nextPayment.amount)}</span>
-          <span className="text-[13px] text-neutral-slate">due {formatDate(nextPayment.date)}</span>
+          <span className="text-[36px] font-bold text-brand-deep leading-none tracking-[-0.02em]">
+            ${nextPayment.amount}
+          </span>
+          <span className="text-[13px] text-neutral-slate">
+            due {formatDateShort(nextPayment.date)}
+          </span>
         </div>
       </div>
-      <div className="h-px bg-neutral-border my-4" />
-      <div className="flex flex-col gap-3">
+      <div className="h-px bg-neutral-border" />
+      <div className="flex flex-col gap-2.5">
         <KeyValueRow label="Last payment" value={lastPaymentValue} />
         <KeyValueRow label="Payment method" value={paymentMethodValue} />
       </div>
       <a
         href="#"
-        className="mt-4 block text-[13px] text-brand-signature font-semibold hover:text-brand-mid transition-colors"
+        className="text-[13px] text-brand-signature font-semibold hover:text-brand-mid transition-colors mt-1"
       >
         Billing history →
       </a>

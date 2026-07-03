@@ -29,36 +29,34 @@ function ActivityIcon({ type }: { type: ActivityItem['type'] }) {
     <div className={`w-9 h-9 rounded-[10px] ${bg} flex items-center justify-center flex-shrink-0`}>
       {type === 'data_topup' && (
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={color}>
-          <path
-            d="M8 12V4M4 7l4-4 4 4"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+          <path d="M8 2v12M2 8h12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
         </svg>
       )}
       {type === 'payment' && (
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={color}>
-          <rect x="1" y="3.5" width="14" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-          <path d="M1 6.5h14" stroke="currentColor" strokeWidth="1.5" />
+          <rect x="1.5" y="3.5" width="13" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.4" />
+          <path d="M1.5 6.5h13" stroke="currentColor" strokeWidth="1.4" />
         </svg>
       )}
       {type === 'plan_change' && (
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={color}>
           <path
-            d="M13 4.5A6 6 0 1 1 9 2.07M13 4.5V1.5M13 4.5H10"
+            d="M8 2L10 6l4.5.65-3.25 3.17.77 4.48L8 12.1l-4.02 2.2.77-4.48L1.5 6.65 6 6 8 2z"
             stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
+            strokeWidth="1.4"
             strokeLinejoin="round"
           />
         </svg>
       )}
       {type === 'addon' && (
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={color}>
-          <circle cx="8" cy="8" r="6.25" stroke="currentColor" strokeWidth="1.5" />
-          <path d="M8 5v6M5 8h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.4" />
+          <path
+            d="M5 8c0-1.657 1.343-3 3-3M8 11v.5"
+            stroke="currentColor"
+            strokeWidth="1.4"
+            strokeLinecap="round"
+          />
         </svg>
       )}
     </div>
@@ -71,21 +69,32 @@ function statusToBadgeVariant(status: string): 'success' | 'purple' | 'neutral' 
   return 'neutral'
 }
 
+function formatTimestamp(iso: string): string {
+  return new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).format(new Date(iso))
+}
+
 function ActivitySkeleton() {
   return (
     <div className="bg-white border border-neutral-border rounded-xl shadow-card p-6">
       <div className="animate-pulse">
         <SkeletonBlock width="w-1/3" height="h-3" />
         {[1, 2, 3, 4].map(i => (
-          <div key={i} className="flex justify-between items-start py-2.5 px-3 mt-1">
-            <div className="flex gap-3 items-center">
+          <div key={i} className="flex justify-between items-start py-3 px-3 mt-1">
+            <div className="flex gap-3.5 items-center">
               <SkeletonBlock width="w-9" height="h-9" rounded="rounded-[10px]" />
               <div className="flex flex-col gap-2">
                 <SkeletonBlock width="w-32" height="h-3" />
-                <SkeletonBlock width="w-20" height="h-3" />
+                <SkeletonBlock width="w-24" height="h-3" />
               </div>
             </div>
-            <SkeletonBlock width="w-16" height="h-5" rounded="rounded-full" />
+            <div className="flex flex-col gap-1.5 items-end">
+              <SkeletonBlock width="w-14" height="h-3" />
+              <SkeletonBlock width="w-16" height="h-5" rounded="rounded-full" />
+            </div>
           </div>
         ))}
       </div>
@@ -106,42 +115,38 @@ export function ActivityFeed() {
   return (
     <div className="bg-white border border-neutral-border rounded-xl shadow-card p-6">
       <CardHeader
-        label="Recent activity"
+        label="Recent Activity"
         action={
-          <a href="#" className="text-[13px] text-brand-signature font-semibold hover:text-brand-mid">
+          <a href="#" className="text-[13px] text-brand-signature font-semibold hover:text-brand-mid transition-colors">
             View all →
           </a>
         }
       />
-      <div className="mt-2">
+      <div className="mt-2 flex flex-col gap-1">
         {items.map(item => {
           const formattedAmount =
             item.amount !== null
-              ? new Intl.NumberFormat('en-AU', {
-                  style: 'currency',
-                  currency: 'AUD',
-                }).format(Math.abs(item.amount))
+              ? `$${Math.abs(item.amount).toFixed(2)}`
               : null
 
           const badgeVariant = statusToBadgeVariant(item.status)
+          const subtitle = `${formatTimestamp(item.timestamp)} · ${item.detail}`
 
           return (
             <div
               key={item.id}
-              className="flex justify-between items-center px-3 py-2.5 rounded-lg hover:bg-brand-ghost transition-colors"
+              className="flex items-center gap-3.5 px-3 py-3 rounded-lg hover:bg-brand-ghost transition-colors"
             >
-              <div className="flex gap-3 items-start">
-                <ActivityIcon type={item.type} />
-                <div>
-                  <p className="text-[14px] font-semibold text-neutral-ink">{item.description}</p>
-                  <p className="text-[12px] text-neutral-slate">{item.detail}</p>
-                </div>
+              <ActivityIcon type={item.type} />
+              <div className="flex-1 min-w-0">
+                <p className="text-[14px] font-semibold text-neutral-ink">{item.description}</p>
+                <p className="text-[12px] text-neutral-slate">{subtitle}</p>
               </div>
               <div className="flex flex-col items-end gap-1">
                 {formattedAmount !== null ? (
                   <p className="text-[14px] font-bold text-neutral-ink">{formattedAmount}</p>
                 ) : (
-                  <p className="text-[14px] font-bold text-neutral-slate">—</p>
+                  <p className="text-[14px] font-bold text-neutral-ink">—</p>
                 )}
                 <Badge variant={badgeVariant}>
                   {item.status.charAt(0).toUpperCase() + item.status.slice(1)}

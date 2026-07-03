@@ -2,30 +2,37 @@
 
 import { useUsageHistory } from '@/hooks/useUsageHistory'
 import { SkeletonBlock } from '@/components/ui/atoms/SkeletonBlock'
-import { CardHeader } from '@/components/ui/molecules/CardHeader'
 import { ErrorState } from '@/components/ui/ErrorState'
 
 function UsageHistorySkeleton() {
   return (
-    <div className="bg-white border border-neutral-border rounded-xl shadow-card p-6">
-      <div className="animate-pulse">
-        <SkeletonBlock width="w-1/4" height="h-3" />
-        <div className="flex items-end gap-2 mt-4" style={{ height: '160px' }}>
-          {[80, 120, 60, 140, 100, 90].map((h, i) => (
-            <div key={i} className="flex-1 flex flex-col justify-end" style={{ height: '160px' }}>
-              <div
-                className="w-full animate-pulse bg-neutral-border rounded-t-sm"
-                style={{ height: `${h}px` }}
-              />
-            </div>
-          ))}
+    <div className="bg-white border border-neutral-border rounded-xl shadow-card px-8 py-7">
+      <div className="animate-pulse flex justify-between items-start mb-6">
+        <div className="flex flex-col gap-2">
+          <SkeletonBlock width="w-28" height="h-3" />
+          <SkeletonBlock width="w-64" height="h-4" />
         </div>
+        <div className="flex gap-5">
+          <SkeletonBlock width="w-16" height="h-3" />
+          <SkeletonBlock width="w-16" height="h-3" />
+          <SkeletonBlock width="w-16" height="h-3" />
+        </div>
+      </div>
+      <div className="flex items-end gap-0" style={{ height: '128px' }}>
+        {[56, 64, 90, 82, 100, 76].map((h, i) => (
+          <div key={i} className="flex-1 flex flex-col items-center justify-end gap-1.5">
+            <div
+              className="w-7 bg-neutral-border rounded-t-[4px]"
+              style={{ height: `${Math.round(h / 100 * 128)}px` }}
+            />
+          </div>
+        ))}
       </div>
     </div>
   )
 }
 
-const CHART_HEIGHT = 160
+const CHART_HEIGHT = 128
 
 export function UsageHistoryChart() {
   const state = useUsageHistory()
@@ -38,78 +45,98 @@ export function UsageHistoryChart() {
   const { totalGB, months } = state.data
 
   return (
-    <div className="bg-white border border-neutral-border rounded-xl shadow-card p-6">
-      <CardHeader label="Usage history" />
-      <p className="text-[12px] text-neutral-slate mb-4">Monthly data consumption · Jan–Jun 2026</p>
-      <div className="relative">
-        {/* Cap line */}
-        <div className="absolute top-0 left-0 right-0 flex items-center">
-          <div
-            className="flex-1 border-t border-dashed"
-            style={{ borderColor: 'rgba(70,0,115,0.3)' }}
-          />
-          <span className="ml-2 text-[10px] font-semibold text-brand-deep opacity-60 whitespace-nowrap">
-            {totalGB} GB cap
-          </span>
+    <div className="bg-white border border-neutral-border rounded-xl shadow-card px-8 py-7 flex flex-col gap-6">
+      {/* Header: label + subtitle on left, legend on right */}
+      <div className="flex items-start justify-between">
+        <div>
+          <p className="text-xs font-medium uppercase tracking-[0.06em] text-neutral-slate mb-1">
+            Usage History
+          </p>
+          <p className="text-[15px] font-semibold text-neutral-ink">
+            Monthly data consumption · Jan–Jun 2026
+          </p>
         </div>
-        {/* Bars */}
+        <div className="flex items-center gap-5 text-[12px] text-neutral-slate">
+          <div className="flex items-center gap-1.5">
+            <div className="w-3 h-3 rounded-[2px] bg-brand-signature" />
+            <span>Data used</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <div className="w-3 h-3 rounded-[2px] bg-brand-light" />
+            <span>At cap</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <div
+              className="w-6 h-[2px]"
+              style={{ background: 'repeating-linear-gradient(90deg, #460073 0 4px, transparent 4px 8px)', opacity: 0.5 }}
+            />
+            <span>{totalGB}GB cap</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Chart */}
+      <div className="relative pt-2">
+        {/* Cap line */}
         <div
-          className="flex items-end gap-0 pt-4"
-          style={{ height: `${CHART_HEIGHT + 16}px` }}
-        >
+          className="absolute top-2 left-0 right-0 h-px"
+          style={{ background: 'repeating-linear-gradient(90deg, #460073 0 6px, transparent 6px 12px)', opacity: 0.35 }}
+        />
+        <span className="absolute top-0 right-0 text-[10px] font-semibold text-brand-deep opacity-60 tracking-[0.03em]">
+          {totalGB} GB cap
+        </span>
+
+        <div className="flex gap-0" style={{ height: `${CHART_HEIGHT}px` }}>
           {months.map(m => {
             const heightPct = Math.min((m.usedGB / totalGB) * 100, 100)
-            const barHeight = Math.round((heightPct / 100) * CHART_HEIGHT)
+            const barHeight = Math.round((heightPct / 100) * (CHART_HEIGHT - 38))
             const isAtCap = !m.isCurrent && m.usedGB >= totalGB
 
-            let barClass = 'bg-brand-signature rounded-t-[4px]'
+            let barStyle: React.CSSProperties = { height: `${barHeight}px`, width: '28px' }
+            let barClass = 'rounded-t-[4px] bg-brand-signature'
+
             if (m.isCurrent) {
-              barClass = 'bg-brand-ghost border border-dashed rounded-t-[4px] opacity-80'
+              barClass = 'rounded-t-[4px]'
+              barStyle = {
+                height: `${barHeight}px`,
+                width: '28px',
+                background: '#F5EEFF',
+                border: '1.5px dashed rgba(161,0,255,0.5)',
+                opacity: 0.65,
+              }
             } else if (isAtCap) {
-              barClass = 'bg-brand-light rounded-t-[4px]'
+              barClass = 'rounded-t-[4px] bg-brand-light'
             }
 
-            const labelColor = m.isCurrent ? 'text-brand-signature font-semibold' : 'text-neutral-slate'
-            const valColor = isAtCap ? 'text-brand-mid font-semibold' : m.isCurrent ? 'text-brand-signature font-semibold' : 'text-neutral-slate'
+            const valColor = isAtCap
+              ? 'text-brand-mid font-semibold'
+              : m.isCurrent
+              ? 'text-brand-signature font-semibold'
+              : 'text-neutral-slate'
+
+            const labelColor = m.isCurrent
+              ? 'text-brand-signature font-semibold'
+              : 'text-neutral-slate'
 
             return (
-              <div
-                key={m.month}
-                className="flex-1 flex flex-col items-center justify-end"
-                style={{ height: `${CHART_HEIGHT}px` }}
-              >
-                <span className={`text-[10px] mb-0.5 ${valColor}`}>{m.usedGB}GB</span>
-                <div
-                  className={`w-7 ${barClass}`}
-                  style={{
-                    height: `${barHeight}px`,
-                    ...(m.isCurrent ? { borderColor: 'rgba(161,0,255,0.5)' } : {}),
-                  }}
-                />
-                <span className={`text-[11px] text-center mt-1 ${labelColor}`}>
-                  {m.label}{m.isCurrent ? ' ▸' : ''}
-                </span>
+              <div key={m.month} className="flex-1 h-full flex flex-col">
+                {/* bar area — bar sits at the bottom of this flex region */}
+                <div className="flex-1 flex items-end justify-center">
+                  <div className={barClass} style={barStyle} />
+                </div>
+                {/* value below bar */}
+                <div className="flex justify-center mt-1">
+                  <span className={`text-[10px] ${valColor}`}>{m.usedGB} GB</span>
+                </div>
+                {/* month label below value */}
+                <div className="flex justify-center mt-0.5">
+                  <span className={`text-[11px] ${labelColor}`}>
+                    {m.label}{m.isCurrent ? ' ▸' : ''}
+                  </span>
+                </div>
               </div>
             )
           })}
-        </div>
-      </div>
-      {/* Legend */}
-      <div className="flex items-center gap-5 mt-4 pt-3 border-t border-neutral-border">
-        <div className="flex items-center gap-1.5">
-          <div className="w-3 h-3 rounded-[2px] bg-brand-signature" />
-          <span className="text-[11px] text-neutral-slate">Data used</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <div className="w-3 h-3 rounded-[2px] bg-brand-light" />
-          <span className="text-[11px] text-neutral-slate">At cap</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <div
-            className="w-6 h-[2px] border-t border-dashed"
-            style={{ borderColor: 'rgba(161,0,255,0.5)' }}
-          />
-          <span className="text-[11px] text-neutral-slate">Current month</span>
         </div>
       </div>
     </div>
