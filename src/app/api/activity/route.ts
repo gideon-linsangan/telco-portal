@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
-import data from '@/stubs/activity.json'
+import { getActivity } from '@/lib/contentful'
 
 export async function GET() {
+  const data = await getActivity()
   return NextResponse.json(data)
 }

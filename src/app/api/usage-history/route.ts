@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
-import data from '@/stubs/usage-history.json'
+import { getUsageHistory } from '@/lib/contentful'
 
 export async function GET() {
+  const data = await getUsageHistory()
   return NextResponse.json(data)
 }

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
-import data from '@/stubs/account.json'
+import { getAccount } from '@/lib/contentful'
 
 export async function GET() {
+  const data = await getAccount()
   return NextResponse.json(data)
 }

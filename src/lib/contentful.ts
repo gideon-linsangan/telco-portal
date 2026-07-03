@@ -6,6 +6,13 @@ import type {
   PromoBanner,
   BlogPost,
 } from '@/types/contentful'
+import type { AccountData } from '@/types/account'
+import type { UsageData } from '@/types/usage'
+import type { BillingData } from '@/types/billing'
+import type { ActivityData } from '@/types/activity'
+import type { TicketsData } from '@/types/tickets'
+import type { AddonsData } from '@/types/addons'
+import type { UsageHistoryData, UsageMonth } from '@/types/usage-history'
 
 // Strip BOM (U+FEFF) that can appear when env vars are copy-pasted from certain editors
 const SPACE = process.env.CONTENTFUL_SPACE_ID?.replace(/﻿/g, '')
@@ -161,4 +168,151 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   } catch (err) { console.error('[Contentful] getBlogPosts error:', err) }
   console.warn('[Contentful] blogPosts → stub fallback')
   return (await import('@/stubs/posts.json')).default as BlogPost[]
+}
+
+// ── Dashboard data ────────────────────────────────────────────────────────────
+
+export async function getAccount(): Promise<AccountData> {
+  try {
+    const items = await getEntries('customerAccount', { limit: '1' })
+    if (items.length > 0) {
+      const item = items[0]
+      return {
+        planName:       f<string>(item, 'planName'),
+        dataAllowanceGB: f<number>(item, 'dataAllowanceGB'),
+        monthlyCost:    f<number>(item, 'monthlyCost'),
+        renewalDate:    f<string>(item, 'renewalDate'),
+        contractType:   f<string>(item, 'contractType'),
+        status:         f<AccountData['status']>(item, 'status'),
+      }
+    }
+  } catch (err) { console.error('[Contentful] getAccount error:', err) }
+  console.warn('[Contentful] account → stub fallback')
+  return (await import('@/stubs/account.json')).default as AccountData
+}
+
+export async function getUsage(): Promise<UsageData> {
+  try {
+    const items = await getEntries('customerUsage', { limit: '1' })
+    if (items.length > 0) {
+      const item = items[0]
+      return {
+        usedGB:         f<number>(item, 'usedGB'),
+        totalGB:        f<number>(item, 'totalGB'),
+        cycleStartDate: f<string>(item, 'cycleStartDate'),
+        cycleEndDate:   f<string>(item, 'cycleEndDate'),
+        overageRate:    f<number>(item, 'overageRate'),
+      }
+    }
+  } catch (err) { console.error('[Contentful] getUsage error:', err) }
+  console.warn('[Contentful] usage → stub fallback')
+  return (await import('@/stubs/usage.json')).default as UsageData
+}
+
+export async function getBilling(): Promise<BillingData> {
+  try {
+    const items = await getEntries('customerBilling', { limit: '1' })
+    if (items.length > 0) {
+      const item = items[0]
+      return {
+        nextPayment: {
+          amount: f<number>(item, 'nextPaymentAmount'),
+          date:   f<string>(item, 'nextPaymentDate'),
+        },
+        lastPayment: {
+          amount: f<number>(item, 'lastPaymentAmount'),
+          date:   f<string>(item, 'lastPaymentDate'),
+          status: f<BillingData['lastPayment']['status']>(item, 'lastPaymentStatus'),
+        },
+        paymentMethod: {
+          type:  f<string>(item, 'paymentMethodType'),
+          last4: f<string>(item, 'paymentMethodLast4'),
+        },
+      }
+    }
+  } catch (err) { console.error('[Contentful] getBilling error:', err) }
+  console.warn('[Contentful] billing → stub fallback')
+  return (await import('@/stubs/billing.json')).default as BillingData
+}
+
+export async function getActivity(): Promise<ActivityData> {
+  try {
+    const items = await getEntries('activityItem', { order: '-fields.timestamp' })
+    if (items.length > 0) {
+      return items.map(item => ({
+        id:          f<string>(item, 'activityId'),
+        type:        f<ActivityData[number]['type']>(item, 'type'),
+        description: f<string>(item, 'description'),
+        detail:      f<string>(item, 'detail'),
+        timestamp:   f<string>(item, 'timestamp'),
+        amount:      f<number | null>(item, 'amount') ?? null,
+        status:      f<string>(item, 'status'),
+      }))
+    }
+  } catch (err) { console.error('[Contentful] getActivity error:', err) }
+  console.warn('[Contentful] activity → stub fallback')
+  const raw = (await import('@/stubs/activity.json')).default as Array<{
+    id: string; type: ActivityData[number]['type']; description: string;
+    detail: string; timestamp: string; amount: number | null; status: string
+  }>
+  return raw
+}
+
+export async function getTickets(): Promise<TicketsData> {
+  try {
+    const items = await getEntries('supportTicket', { order: '-fields.updatedAt' })
+    if (items.length > 0) {
+      return items.map(item => ({
+        id:        f<string>(item, 'ticketId'),
+        subject:   f<string>(item, 'subject'),
+        status:    f<TicketsData[number]['status']>(item, 'status'),
+        priority:  f<TicketsData[number]['priority']>(item, 'priority'),
+        createdAt: f<string>(item, 'createdAt'),
+        updatedAt: f<string>(item, 'updatedAt'),
+      }))
+    }
+  } catch (err) { console.error('[Contentful] getTickets error:', err) }
+  console.warn('[Contentful] tickets → stub fallback')
+  const raw = (await import('@/stubs/tickets.json')).default as Array<{
+    id: string; subject: string; status: TicketsData[number]['status'];
+    priority: TicketsData[number]['priority']; createdAt: string; updatedAt: string
+  }>
+  return raw
+}
+
+export async function getAddons(): Promise<AddonsData> {
+  try {
+    const items = await getEntries('customerAddon')
+    if (items.length > 0) {
+      return items.map(item => ({
+        id:           f<string>(item, 'addonId'),
+        name:         f<string>(item, 'name'),
+        description:  f<string>(item, 'description'),
+        price:        f<number>(item, 'price'),
+        billingCycle: f<AddonsData[number]['billingCycle']>(item, 'billingCycle'),
+        active:       f<boolean>(item, 'active'),
+      }))
+    }
+  } catch (err) { console.error('[Contentful] getAddons error:', err) }
+  console.warn('[Contentful] addons → stub fallback')
+  const raw = (await import('@/stubs/addons.json')).default as Array<{
+    id: string; name: string; description: string; price: number;
+    billingCycle: AddonsData[number]['billingCycle']; active: boolean
+  }>
+  return raw
+}
+
+export async function getUsageHistory(): Promise<UsageHistoryData> {
+  try {
+    const items = await getEntries('usageHistory', { limit: '1' })
+    if (items.length > 0) {
+      const item = items[0]
+      return {
+        totalGB: f<number>(item, 'totalGB'),
+        months:  f<UsageMonth[]>(item, 'months'),
+      }
+    }
+  } catch (err) { console.error('[Contentful] getUsageHistory error:', err) }
+  console.warn('[Contentful] usageHistory → stub fallback')
+  return (await import('@/stubs/usage-history.json')).default as UsageHistoryData
 }
