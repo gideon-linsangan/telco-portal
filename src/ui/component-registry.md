@@ -91,6 +91,8 @@
 | Component | Path | Used in |
 |-----------|------|---------|
 | `ErrorState` | `components/ui/ErrorState.tsx` | All dashboard cards |
+| `loading.tsx` | `app/dashboard/loading.tsx` | Dashboard route — shown while page.tsx renders |
+| `error.tsx` | `app/dashboard/error.tsx` | Dashboard route — catches render errors, offers retry |
 
 ---
 

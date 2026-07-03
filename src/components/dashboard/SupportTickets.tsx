@@ -86,7 +86,7 @@ export function SupportTickets() {
           ))}
         </div>
       )}
-      <button className="w-full border border-brand-signature text-brand-signature text-[13px] font-semibold h-9 rounded-lg hover:bg-brand-ghost transition-colors">
+      <button type="button" className="w-full border border-brand-signature text-brand-signature text-[13px] font-semibold h-9 rounded-lg hover:bg-brand-ghost transition-colors">
         + Raise a ticket
       </button>
     </div>

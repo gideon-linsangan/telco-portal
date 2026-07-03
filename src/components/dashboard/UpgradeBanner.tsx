@@ -2,11 +2,33 @@
 
 import { useUsageContext } from '@/context/UsageContext'
 import { Badge } from '@/components/ui/atoms/Badge'
+import { SkeletonBlock } from '@/components/ui/atoms/SkeletonBlock'
+
+function UpgradeBannerSkeleton() {
+  return (
+    <div className="bg-brand-ghost border border-brand-light rounded-xl shadow-card overflow-hidden h-full animate-pulse flex items-stretch">
+      <div className="w-[5px] bg-brand-light flex-shrink-0" />
+      <div className="flex-1 p-7 flex flex-col justify-center gap-3.5">
+        <div className="flex items-center gap-2.5">
+          <SkeletonBlock width="w-20" height="h-5" rounded="rounded-full" />
+          <SkeletonBlock width="w-40" height="h-3" />
+        </div>
+        <SkeletonBlock width="w-full" height="h-5" />
+        <SkeletonBlock width="w-3/4" height="h-5" />
+        <SkeletonBlock width="w-full" height="h-4" />
+        <div className="flex items-center gap-3">
+          <SkeletonBlock width="w-28" height="h-[38px]" rounded="rounded-lg" />
+          <SkeletonBlock width="w-24" height="h-3" />
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export function UpgradeBanner() {
   const { percentUsed } = useUsageContext()
 
-  if (percentUsed === null) return null
+  if (percentUsed === null) return <UpgradeBannerSkeleton />
 
   return (
     <div className="bg-brand-ghost border border-brand-light rounded-xl shadow-card overflow-hidden h-full flex items-stretch">
@@ -30,7 +52,7 @@ export function UpgradeBanner() {
           Pro gives you unlimited data, Ultra 5G speeds, and 24/7 support — from $99/mo with no lock-in.
         </p>
         <div className="flex items-center gap-4">
-          <button className="bg-brand-signature hover:bg-brand-mid text-white font-semibold px-5 h-[38px] rounded-lg transition-colors text-[14px]">
+          <button type="button" className="bg-brand-signature hover:bg-brand-mid text-white font-semibold px-5 h-[38px] rounded-lg transition-colors text-[14px]">
             Upgrade now
           </button>
           <a

@@ -1,6 +1,4 @@
 import NextLink from 'next/link'
-import { Link } from '@/components/ui/atoms/Link'
-import { Text } from '@/components/ui/atoms/Text'
 
 const COLUMNS = [
   {
@@ -43,8 +41,8 @@ export function SiteFooter() {
             <NextLink href="/" className="text-xl font-bold tracking-tight text-white">
               Telco<span className="text-brand-light">Now</span>
             </NextLink>
-            <Text variant="caption" color="slate">Fast. Simple. Yours.</Text>
-            <p className="text-[14px] text-neutral-slate leading-relaxed max-w-[240px]">
+            <p className="text-xs leading-relaxed text-white/60">Fast. Simple. Yours.</p>
+            <p className="text-[14px] text-white/60 leading-relaxed max-w-[240px]">
               Australia&rsquo;s fastest growing 5G network. Built for real people, priced fairly.
             </p>
           </div>
@@ -53,14 +51,18 @@ export function SiteFooter() {
           <div className="grid grid-cols-3 gap-4 md:flex md:flex-1 md:gap-12">
             {COLUMNS.map(col => (
               <div key={col.heading} className="flex flex-col">
-                <div className="mb-3">
-                  <Text variant="label" color="slate">{col.heading}</Text>
-                </div>
+                <span className="text-xs font-medium uppercase tracking-wider text-white/50 mb-3">
+                  {col.heading}
+                </span>
                 <div className="flex flex-col gap-1">
                   {col.links.map(link => (
-                    <Link key={link.href} variant="muted" href={link.href}>
+                    <NextLink
+                      key={link.href}
+                      href={link.href}
+                      className="text-[14px] text-white/60 hover:text-white transition-colors"
+                    >
                       {link.label}
-                    </Link>
+                    </NextLink>
                   ))}
                 </div>
               </div>
@@ -71,8 +73,8 @@ export function SiteFooter() {
 
         {/* Bottom bar */}
         <div className="border-t border-white/10 py-5 flex flex-col md:flex-row items-center gap-1 md:justify-between">
-          <span className="text-[13px] text-neutral-slate">© 2026 TelcoNow Pty Ltd</span>
-          <span className="text-[13px] text-neutral-slate">All prices include GST</span>
+          <span className="text-[13px] text-white/40">© 2026 TelcoNow Pty Ltd</span>
+          <span className="text-[13px] text-white/40">All prices include GST</span>
         </div>
 
       </div>

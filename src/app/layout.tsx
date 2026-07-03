@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'TelcoNow',
   description: "Australia's fastest 5G network. Flexible plans, no lock-in contracts.",
+  icons: { icon: '/favicon.svg' },
 }
 
 export default function RootLayout({

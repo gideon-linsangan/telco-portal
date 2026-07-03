@@ -11,6 +11,7 @@ export function ErrorState({ message, onRetry }: ErrorStateProps) {
       {message && <p className="text-sm text-neutral-slate">{message}</p>}
       {onRetry && (
         <button
+          type="button"
           onClick={onRetry}
           className="mt-1 text-sm font-semibold text-brand-signature hover:text-brand-mid transition-colors"
         >
