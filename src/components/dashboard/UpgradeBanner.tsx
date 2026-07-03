@@ -42,8 +42,8 @@ export function UpgradeBanner() {
         </div>
       </div>
 
-      {/* Right decorative SVG */}
-      <div className="w-[140px] flex-shrink-0 flex items-center justify-center overflow-hidden">
+      {/* Right decorative SVG — hidden on mobile to give buttons room */}
+      <div className="hidden md:flex w-[140px] flex-shrink-0 items-center justify-center overflow-hidden">
         <svg width="140" height="200" viewBox="0 0 140 200" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="110" cy="100" r="90" stroke="rgba(161,0,255,0.12)" strokeWidth="1" fill="none" />
           <circle cx="110" cy="100" r="60" stroke="rgba(161,0,255,0.18)" strokeWidth="1" fill="none" />

@@ -95,7 +95,9 @@ export function UsageMeterCard() {
         <ProgressBar percent={percentUsed} />
         <div className="flex justify-between mt-1.5 text-[11px] text-neutral-slate">
           <span>0 GB</span>
-          <span className="text-semantic-warning font-semibold">▲ 80% warning threshold</span>
+          {percentUsed >= 80 && (
+            <span className="text-semantic-warning font-semibold">▲ 80% warning threshold</span>
+          )}
           <span>{totalGB} GB</span>
         </div>
       </div>
