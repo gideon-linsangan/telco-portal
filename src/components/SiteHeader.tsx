@@ -15,7 +15,7 @@ export function SiteHeader() {
   const pathname = usePathname()
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-brand-deep border-b border-white/8">
+    <header className="sticky top-0 z-50 w-full bg-brand-deep">
       <div className="max-w-7xl mx-auto px-4 md:px-8 h-14 md:h-16 flex items-center">
 
         <NextLink href="/" className="flex-shrink-0 text-xl font-bold tracking-tight text-white">

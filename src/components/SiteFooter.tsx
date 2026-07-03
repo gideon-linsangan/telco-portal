@@ -49,21 +49,23 @@ export function SiteFooter() {
             </p>
           </div>
 
-          {/* Link columns */}
-          {COLUMNS.map(col => (
-            <div key={col.heading} className="md:flex-1 flex flex-col">
-              <div className="mb-3">
-                <Text variant="label" color="slate">{col.heading}</Text>
+          {/* Link columns — 3-col grid on mobile, flex row on desktop */}
+          <div className="grid grid-cols-3 gap-4 md:flex md:flex-1 md:gap-12">
+            {COLUMNS.map(col => (
+              <div key={col.heading} className="flex flex-col">
+                <div className="mb-3">
+                  <Text variant="label" color="slate">{col.heading}</Text>
+                </div>
+                <div className="flex flex-col gap-1">
+                  {col.links.map(link => (
+                    <Link key={link.href} variant="muted" href={link.href}>
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
               </div>
-              <div className="flex flex-col gap-1">
-                {col.links.map(link => (
-                  <Link key={link.href} variant="muted" href={link.href}>
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
 
         </div>
 
