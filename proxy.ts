@@ -18,7 +18,8 @@ export default async function proxy(req: NextRequest) {
   }
 
   if (isPublicOnly && session?.userId) {
-    return NextResponse.redirect(new URL('/dashboard', req.nextUrl))
+    // Redirect to homepage so browser back-button from dashboard lands on / not /login
+    return NextResponse.redirect(new URL('/', req.nextUrl))
   }
 
   return NextResponse.next()

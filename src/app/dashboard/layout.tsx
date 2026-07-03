@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic'
 
 import { verifySession } from '@/lib/dal'
 import { Sidebar } from '@/components/dashboard/Sidebar'
+import { MobileTopBar } from '@/components/dashboard/MobileTopBar'
 import accountStub from '@/stubs/account.json'
 
 function getInitials(name: string): string {
@@ -18,7 +19,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const initials = getInitials(session.name)
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex flex-col md:flex-row h-screen overflow-hidden">
+      <MobileTopBar />
       <Sidebar
         name={session.name}
         planName={accountStub.planName}

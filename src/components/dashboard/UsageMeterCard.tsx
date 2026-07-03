@@ -97,10 +97,11 @@ export function UsageMeterCard() {
           <span className="absolute left-0">0 GB</span>
           {percentUsed >= 80 && (
             <span
-              className="absolute -translate-x-1/2 text-semantic-warning font-semibold whitespace-nowrap"
+              className="absolute -translate-x-1/2 text-semantic-warning font-semibold"
               style={{ left: '80%' }}
             >
-              ▲ 80% warning threshold
+              <span className="hidden md:inline whitespace-nowrap">▲ 80% warning threshold</span>
+              <span className="md:hidden">▲ 80%</span>
             </span>
           )}
           <span className="absolute right-0">{totalGB} GB</span>
